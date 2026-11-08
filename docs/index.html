@@ -1,0 +1,387 @@
+<!doctype html>
+<html lang="pl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Nazuna - nowy wygląd</title>
+<meta name="description" content="Nazuna 0.1.99: nowy wygląd Lawendowa mgła. Przeglądarka dla Windows, która stawia na prywatność i spokój.">
+<meta property="og:title" content="Nazuna - nowy wygląd">
+<meta property="og:description" content="Lawendowa mgła: nowa karta z zegarem, szklany pasek, ekran powitalny i własne okno prywatne.">
+<meta property="og:image" content="img/nowa-karta.jpg">
+<link rel="icon" href="img/ikona.png">
+<style>
+@font-face { font-family: 'Nunito'; src: url(fonts/Nunito-latin.woff2) format('woff2'); font-weight: 200 1000; font-display: swap; unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215; }
+@font-face { font-family: 'Nunito'; src: url(fonts/Nunito-latin-ext.woff2) format('woff2'); font-weight: 200 1000; font-display: swap; unicode-range: U+0100-02AF, U+1E00-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF; }
+@font-face { font-family: 'Fraunces'; src: url(fonts/Fraunces-latin.woff2) format('woff2'); font-weight: 100 900; font-display: swap; unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215; }
+@font-face { font-family: 'Fraunces'; src: url(fonts/Fraunces-latin-ext.woff2) format('woff2'); font-weight: 100 900; font-display: swap; unicode-range: U+0100-02AF, U+1E00-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF; }
+
+:root {
+  --bg: #15131f;
+  --bg-2: #1b1830;
+  --szklo: rgba(32, 27, 58, 0.55);
+  --obwodka: rgba(255, 255, 255, 0.09);
+  --tekst: #f2f0ff;
+  --tekst-2: #d6d1f2;
+  --tekst-3: #a9a5c4;
+  --akcent: #c9bcff;
+  --akcent-2: #a996ff;
+  --turkus: #8fe6e1;
+  --ease: cubic-bezier(.2, .8, .2, 1);
+  color-scheme: dark;
+}
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  margin: 0; background: var(--bg); color: var(--tekst);
+  font: 17px/1.65 'Nunito', system-ui, sans-serif; overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+img { max-width: 100%; display: block; }
+a { color: var(--akcent); }
+
+/* mgła w tle */
+.mgla { position: fixed; inset: 0; z-index: -1; overflow: hidden; pointer-events: none; background: radial-gradient(1100px 640px at 50% -8%, #2b2350, var(--bg) 70%); }
+.mgla i { position: absolute; border-radius: 50%; filter: blur(110px); opacity: .45; animation: dryf 26s ease-in-out infinite alternate; }
+.mgla i:nth-child(1) { width: 560px; height: 560px; left: -160px; top: 10%; background: #5b47c9; }
+.mgla i:nth-child(2) { width: 480px; height: 480px; right: -140px; top: 38%; background: #d977b6; opacity: .28; animation-delay: -9s; }
+.mgla i:nth-child(3) { width: 520px; height: 520px; left: 30%; bottom: -260px; background: #6fb8ff; opacity: .22; animation-delay: -17s; }
+@keyframes dryf { to { transform: translate(60px, -40px) scale(1.12); } }
+
+.wrap { width: min(1120px, 100% - 32px); margin: 0 auto; }
+
+/* nagłówek */
+header.gora { display: flex; align-items: center; justify-content: space-between; padding: 22px 0; }
+.znak { display: flex; align-items: center; gap: 12px; text-decoration: none; color: var(--akcent); font-weight: 800; letter-spacing: 7px; font-size: 16px; }
+.znak svg { width: 34px; height: 34px; }
+.przycisk {
+  display: inline-flex; align-items: center; gap: 10px; padding: 13px 26px; border-radius: 999px;
+  background: var(--akcent); color: #1b1830; font-weight: 800; text-decoration: none; font-size: 16px;
+  box-shadow: 0 10px 34px rgba(169, 150, 255, .35); transition: transform .25s var(--ease), box-shadow .25s;
+}
+.przycisk:hover { transform: translateY(-2px); box-shadow: 0 14px 40px rgba(169, 150, 255, .5); }
+.przycisk.maly { padding: 9px 18px; font-size: 14.5px; box-shadow: none; }
+.przycisk svg { width: 18px; height: 18px; }
+.przycisk:focus-visible, .zakladka:focus-visible, .zdj:focus-visible { outline: 2px solid var(--akcent); outline-offset: 3px; }
+
+/* hero */
+.hero { text-align: center; padding: 40px 0 30px; }
+.kwiat { width: 110px; height: 110px; margin: 0 auto 14px; overflow: visible; filter: drop-shadow(0 16px 34px rgba(169, 150, 255, .35)); }
+.kwiat .pl, .kwiat .sr { transform-box: fill-box; transform-origin: center; animation: rozkwit .7s var(--ease) both; }
+.kwiat .p2 { animation-delay: .12s; } .kwiat .p3 { animation-delay: .24s; } .kwiat .p4 { animation-delay: .36s; } .kwiat .sr { animation-delay: .5s; }
+@keyframes rozkwit { from { transform: scale(0); opacity: 0; } 70% { transform: scale(1.08); opacity: 1; } to { transform: scale(1); } }
+.etykieta { display: inline-block; padding: 4px 14px; border-radius: 999px; background: rgba(201, 188, 255, .12); color: var(--akcent); font-weight: 700; font-size: 14px; box-shadow: inset 0 0 0 1px rgba(201, 188, 255, .22); }
+h1, h2 { font-family: 'Fraunces', Georgia, serif; font-weight: 500; letter-spacing: -.5px; line-height: 1.12; margin: 0; }
+h1 { font-size: clamp(38px, 6.4vw, 72px); margin: 18px 0 16px; }
+h1 em, h2 em { font-style: italic; color: var(--akcent); }
+.lead { max-width: 640px; margin: 0 auto 30px; color: var(--tekst-2); font-size: 19px; }
+.cta { display: flex; gap: 16px; justify-content: center; align-items: center; flex-wrap: wrap; }
+.cta small { color: var(--tekst-3); font-size: 14px; }
+
+/* okno ze zrzutem */
+.okno {
+  position: relative; border-radius: 16px; overflow: hidden; background: var(--bg-2);
+  box-shadow: 0 0 0 1px var(--obwodka), 0 40px 90px -20px rgba(0, 0, 0, .7), 0 0 120px -30px rgba(169, 150, 255, .35);
+}
+.okno img { width: 100%; height: auto; aspect-ratio: 16 / 10; object-fit: cover; }
+.hero .okno { margin-top: 54px; animation: wjazd 1s var(--ease) .2s both; }
+@keyframes wjazd { from { opacity: 0; transform: translateY(40px) scale(.97); } }
+
+/* sekcje */
+section { padding: 90px 0 10px; }
+.naglowek { max-width: 700px; margin-bottom: 34px; }
+.naglowek.srodek { margin-inline: auto; text-align: center; }
+h2 { font-size: clamp(30px, 4.2vw, 46px); margin: 10px 0 14px; }
+.naglowek p { color: var(--tekst-2); margin: 0; }
+.nr { color: var(--akcent-2); font-weight: 800; font-size: 14px; letter-spacing: 3px; text-transform: uppercase; }
+
+/* przełączniki */
+.zakladki { display: inline-flex; flex-wrap: wrap; gap: 6px; padding: 6px; border-radius: 999px; background: var(--szklo); box-shadow: inset 0 0 0 1px var(--obwodka); margin-bottom: 20px; backdrop-filter: blur(12px); }
+.zakladka { border: 0; cursor: pointer; display: inline-flex; align-items: center; gap: 9px; padding: 9px 18px; border-radius: 999px; background: transparent; color: var(--tekst-2); font: 700 15px 'Nunito', sans-serif; transition: background .2s, color .2s; }
+.zakladka:hover { color: var(--tekst); }
+.zakladka[aria-selected="true"] { background: rgba(255, 255, 255, .14); color: var(--tekst); }
+.kropka { width: 14px; height: 14px; border-radius: 50%; box-shadow: inset 0 0 0 1px rgba(255,255,255,.25); }
+.warstwy { position: relative; }
+.warstwy img { transition: opacity .45s var(--ease); }
+.warstwy img + img { position: absolute; inset: 0; }
+.warstwy img:not(.widoczne) { opacity: 0; }
+
+/* siatka cech */
+.cechy { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; margin-top: 36px; }
+.cecha { padding: 24px; border-radius: 20px; background: var(--szklo); box-shadow: inset 0 0 0 1px var(--obwodka); backdrop-filter: blur(14px); }
+.cecha .ik { width: 42px; height: 42px; border-radius: 13px; display: grid; place-items: center; background: rgba(201, 188, 255, .14); color: var(--akcent); margin-bottom: 14px; }
+.cecha .ik svg { width: 22px; height: 22px; }
+.cecha h3 { margin: 0 0 6px; font-size: 18px; }
+.cecha p { margin: 0; color: var(--tekst-3); font-size: 15.5px; line-height: 1.6; }
+
+/* dwie kolumny */
+.dwie { display: grid; grid-template-columns: 1fr 1.35fr; gap: 50px; align-items: center; }
+.dwie.odwr { grid-template-columns: 1.35fr 1fr; }
+.dwie.odwr .tekst { order: 2; }
+.lista { list-style: none; padding: 0; margin: 20px 0 0; display: grid; gap: 12px; }
+.lista li { display: flex; gap: 12px; color: var(--tekst-2); }
+.lista li::before { content: ''; flex: none; width: 8px; height: 8px; margin-top: 10px; border-radius: 50%; background: var(--akcent); box-shadow: 0 0 12px var(--akcent); }
+.prywatne .lista li::before { background: var(--turkus); box-shadow: 0 0 12px var(--turkus); }
+.prywatne .nr, .prywatne h2 em { color: var(--turkus); }
+.prywatne .okno { box-shadow: 0 0 0 1px rgba(143, 230, 225, .18), 0 40px 90px -20px rgba(0, 0, 0, .7), 0 0 120px -30px rgba(79, 201, 196, .4); }
+
+/* porównanie przed/po */
+.porownanie { position: relative; user-select: none; touch-action: pan-y; cursor: ew-resize; }
+.porownanie .po { position: absolute; inset: 0; clip-path: inset(0 0 0 var(--x, 50%)); }
+.porownanie .po img { width: 100%; height: 100%; }
+.suwak { position: absolute; top: 0; bottom: 0; left: var(--x, 50%); width: 2px; margin-left: -1px; background: #fff; box-shadow: 0 0 18px rgba(0,0,0,.5); pointer-events: none; }
+.suwak::after { content: '\2194'; position: absolute; top: 50%; left: 50%; width: 46px; height: 46px; margin: -23px 0 0 -23px; border-radius: 50%; background: #fff; color: #1b1830; display: grid; place-items: center; font-size: 22px; font-weight: 800; box-shadow: 0 6px 20px rgba(0,0,0,.4); }
+.porownanie input { position: absolute; inset: 0; width: 100%; height: 100%; opacity: 0; cursor: ew-resize; margin: 0; }
+.podpisy { display: flex; justify-content: space-between; margin-top: 12px; color: var(--tekst-3); font-size: 14.5px; font-weight: 700; }
+
+/* galeria */
+.galeria { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
+.zdj { padding: 0; border: 0; background: none; cursor: zoom-in; text-align: left; color: inherit; font: inherit; }
+.zdj .okno { border-radius: 12px; transition: transform .3s var(--ease); }
+.zdj:hover .okno { transform: translateY(-4px); }
+.zdj span { display: block; margin-top: 10px; font-weight: 700; color: var(--tekst-2); font-size: 15.5px; }
+
+/* podgląd na cały ekran */
+dialog { border: 0; padding: 0; background: transparent; max-width: min(1500px, 96vw); max-height: 94vh; }
+dialog::backdrop { background: rgba(10, 8, 22, .85); backdrop-filter: blur(6px); }
+dialog img { max-height: 90vh; width: auto; border-radius: 12px; cursor: zoom-out; }
+
+/* stopka */
+.koniec { text-align: center; padding: 110px 0 60px; }
+.koniec .lead { margin-bottom: 26px; }
+footer { padding: 30px 0 50px; color: var(--tekst-3); font-size: 14px; text-align: center; border-top: 1px solid var(--obwodka); }
+footer p { margin: 4px 0; }
+
+.pojaw { opacity: 0; transform: translateY(26px); transition: opacity .8s var(--ease), transform .8s var(--ease); }
+.pojaw.jest { opacity: 1; transform: none; }
+
+@media (max-width: 860px) {
+  .cechy, .galeria { grid-template-columns: 1fr 1fr; }
+  .dwie, .dwie.odwr { grid-template-columns: 1fr; gap: 26px; }
+  .dwie.odwr .tekst { order: 0; }
+  section { padding-top: 64px; }
+}
+@media (max-width: 560px) {
+  body { font-size: 16px; }
+  .cechy, .galeria { grid-template-columns: 1fr; }
+  header.gora .przycisk { display: none; }
+  .lead { font-size: 17px; }
+  .hero .okno { margin-top: 36px; }
+  .okno { border-radius: 10px; }
+  .zakladka { padding: 8px 13px; font-size: 14px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation: none !important; transition: none !important; }
+  .pojaw { opacity: 1; transform: none; }
+}
+</style>
+</head>
+<body>
+<div class="mgla" aria-hidden="true"><i></i><i></i><i></i></div>
+
+<div class="wrap">
+  <header class="gora">
+    <a class="znak" href="#">
+      <svg viewBox="0 0 100 100" aria-hidden="true"><ellipse cx="50" cy="27" rx="14" ry="21" fill="#d6ccff"/><ellipse cx="73" cy="50" rx="21" ry="14" fill="#b3a3ff"/><ellipse cx="50" cy="73" rx="14" ry="21" fill="#d6ccff"/><ellipse cx="27" cy="50" rx="21" ry="14" fill="#b3a3ff"/><circle cx="50" cy="50" r="9" fill="#fff"/></svg>
+      nazuna
+    </a>
+    <a class="przycisk maly" href="https://github.com/patryktafel/nazuna-updates/releases/latest">Pobierz</a>
+  </header>
+
+  <div class="hero">
+    <svg class="kwiat" viewBox="0 0 100 100" aria-hidden="true">
+      <circle cx="50" cy="50" r="46" fill="#a996ff" opacity=".1"/>
+      <ellipse class="pl p1" cx="50" cy="27" rx="14" ry="21" fill="#d6ccff"/>
+      <ellipse class="pl p2" cx="73" cy="50" rx="21" ry="14" fill="#b3a3ff"/>
+      <ellipse class="pl p3" cx="50" cy="73" rx="14" ry="21" fill="#d6ccff"/>
+      <ellipse class="pl p4" cx="27" cy="50" rx="21" ry="14" fill="#b3a3ff"/>
+      <circle class="sr" cx="50" cy="50" r="9" fill="#fff"/>
+    </svg>
+    <span class="etykieta">Nowość w wersji 0.1.99</span>
+    <h1>Nowa Nazuna.<br><em>Lawendowa mgła.</em></h1>
+    <p class="lead">Ta sama szybka i prywatna przeglądarka, tylko w nowym, spokojnym wyglądzie: miękkie kolory, szklany pasek i nowa karta, na którą chce się patrzeć.</p>
+    <div class="cta">
+      <a class="przycisk" href="https://github.com/patryktafel/nazuna-updates/releases/latest">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4v11m0 0-4.5-4.5M12 15l4.5-4.5M5 20h14"/></svg>
+        Pobierz dla Windows
+      </a>
+      <small>Darmowa · bez konta · masz już Nazunę? Zaktualizuje się sama</small>
+    </div>
+    <div class="okno"><img src="img/nowa-karta.jpg" alt="Nowa karta w Nazunie: duży zegar, powitanie, wyszukiwarka i kafelki ulubionych stron na lawendowym tle" width="1600" height="1000"></div>
+  </div>
+
+  <section class="pojaw">
+    <div class="naglowek srodek">
+      <span class="nr">Nowa karta</span>
+      <h2>Spokojny start <em>każdej karty</em></h2>
+      <p>Zamiast pustej strony: zegar, powitanie dopasowane do pory dnia i Twoje ulubione strony pod ręką.</p>
+    </div>
+    <div class="cechy">
+      <div class="cecha">
+        <div class="ik"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></div>
+        <h3>Zegar i powitanie</h3>
+        <p>Rano „Dzień dobry”, wieczorem „Dobry wieczór”. Drobiazg, który robi różnicę.</p>
+      </div>
+      <div class="cecha">
+        <div class="ik"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M12 3 5 6v5c0 4.5 3 8.3 7 10 4-1.7 7-5.5 7-10V6l-7-3Z"/></svg></div>
+        <h3>Licznik ochrony</h3>
+        <p>Widzisz, ile reklam i elementów śledzących Nazuna zatrzymała dzisiaj. Liczy tylko liczbę, nie zapisuje adresów.</p>
+      </div>
+      <div class="cecha">
+        <div class="ik"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5Z"/></svg></div>
+        <h3>Słońce i księżyc</h3>
+        <p>Jeden przycisk na pasku przełącza strony między jasnym a ciemnym wyglądem. Domyślnie jak w Windows.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="pojaw">
+    <div class="naglowek">
+      <span class="nr">Kolory</span>
+      <h2>Wybierz <em>swój nastrój</em></h2>
+      <p>Trzy zestawy kolorów tła i kilka akcentów. Zmiana działa od razu, w całej przeglądarce.</p>
+    </div>
+    <div class="zakladki" role="tablist" aria-label="Kolory tła" data-grupa="tlo">
+      <button class="zakladka" role="tab" aria-selected="true" data-img="0"><span class="kropka" style="background:linear-gradient(135deg,#5b47c9,#d977b6)"></span>Lawenda</button>
+      <button class="zakladka" role="tab" aria-selected="false" data-img="1"><span class="kropka" style="background:linear-gradient(135deg,#d977b6,#ffb199)"></span>Róż</button>
+      <button class="zakladka" role="tab" aria-selected="false" data-img="2"><span class="kropka" style="background:linear-gradient(135deg,#2c64dc,#4696ff)"></span>Morski</button>
+      <button class="zakladka" role="tab" aria-selected="false" data-img="3"><span class="kropka" style="background:#ff7f6b"></span>Akcent koralowy</button>
+      <button class="zakladka" role="tab" aria-selected="false" data-img="4"><span class="kropka" style="background:#e3b341"></span>Akcent złoty</button>
+    </div>
+    <div class="okno warstwy" data-grupa="tlo">
+      <img class="widoczne" src="img/nowa-karta.jpg" alt="Tło lawendowe" width="1600" height="1000">
+      <img src="img/kolor-roz.jpg" alt="Tło różowe" width="1600" height="1000" loading="lazy">
+      <img src="img/kolor-morski.jpg" alt="Tło morskie, głęboki błękit" width="1600" height="1000" loading="lazy">
+      <img src="img/akcent-koralowy.jpg" alt="Akcent koralowy" width="1600" height="1000" loading="lazy">
+      <img src="img/akcent-zloty.jpg" alt="Akcent złoty" width="1600" height="1000" loading="lazy">
+    </div>
+  </section>
+
+  <section class="pojaw">
+    <div class="dwie">
+      <div class="tekst">
+        <span class="nr">Pasek</span>
+        <h2>Szkło nad <em>każdą stroną</em></h2>
+        <p style="color:var(--tekst-2)">Karty jak zaokrąglone pigułki, pasek adresu jak z matowego szkła. Lekko, czytelnie i bez zbędnych przycisków.</p>
+        <ul class="lista">
+          <li>Zakładki na pasku z ikonami stron</li>
+          <li>Tarcza blokera zawsze pod ręką</li>
+          <li>Nowe karty delikatnie „rozkwitają” przy otwieraniu</li>
+        </ul>
+      </div>
+      <div class="okno"><img src="img/strona.jpg" alt="Nazuna z otwartą stroną Wikipedii o roślinie tasznik" width="1600" height="1000" loading="lazy"></div>
+    </div>
+  </section>
+
+  <section class="pojaw">
+    <div class="dwie odwr">
+      <div class="tekst">
+        <span class="nr">Pierwsze uruchomienie</span>
+        <h2>Trzy kroki <em>i gotowe</em></h2>
+        <p style="color:var(--tekst-2)">Na powitanie Nazuna pyta tylko o to, co ważne: wygląd i kolory. Potem pokazuje, jak Cię chroni. Wszystko da się później zmienić w ustawieniach.</p>
+        <ul class="lista">
+          <li>Lawendowa mgła albo Klasyczny wygląd</li>
+          <li>Podgląd zmian na żywo</li>
+          <li>Ekran powitalny można przywołać z menu</li>
+        </ul>
+      </div>
+      <div class="okno"><img src="img/powitanie.jpg" alt="Ekran powitalny: wybór wyglądu Lawendowa mgła albo Klasyczny" width="1600" height="1000" loading="lazy"></div>
+    </div>
+  </section>
+
+  <section class="pojaw prywatne">
+    <div class="dwie">
+      <div class="tekst">
+        <span class="nr">Okno prywatne</span>
+        <h2>Noc i <em>turkus</em></h2>
+        <p style="color:var(--tekst-2)">Okno prywatne ma własny charakter, więc od razu wiesz, gdzie jesteś. Ten kolor jest zarezerwowany tylko dla niego.</p>
+        <ul class="lista">
+          <li>Po zamknięciu nie zostaje historia ani ciasteczka</li>
+          <li>Pobrane pliki nie trafiają na listę</li>
+          <li>Nic nie jest zapisywane na dysku</li>
+        </ul>
+      </div>
+      <div class="okno"><img src="img/prywatne.jpg" alt="Okno prywatne Nazuny: prawie czarne tło z turkusową poświatą" width="1600" height="1000" loading="lazy"></div>
+    </div>
+  </section>
+
+  <section class="pojaw">
+    <div class="naglowek srodek">
+      <span class="nr">Przed i po</span>
+      <h2>Przesuń, żeby <em>porównać</em></h2>
+      <p>Wolisz po staremu? Klasyczny wygląd został i można go wybrać w każdej chwili.</p>
+    </div>
+    <div class="okno porownanie" id="porownanie">
+      <img src="img/klasyczny-ciemny.jpg" alt="Klasyczny wygląd Nazuny" width="1600" height="1000" loading="lazy">
+      <div class="po"><img src="img/nowa-karta.jpg" alt="Nowy wygląd Lawendowa mgła" width="1600" height="1000" loading="lazy"></div>
+      <div class="suwak"></div>
+      <input type="range" min="0" max="100" value="50" aria-label="Przesuń, żeby porównać stary i nowy wygląd">
+    </div>
+    <div class="podpisy"><span>← Klasyczny</span><span>Lawendowa mgła →</span></div>
+  </section>
+
+  <section class="pojaw">
+    <div class="naglowek">
+      <span class="nr">Wszędzie</span>
+      <h2>Nowy wygląd <em>w każdym zakątku</em></h2>
+      <p>Ustawienia, historia, zakładki, pobrane pliki i strona „O Nazunie”. Kliknij, żeby powiększyć.</p>
+    </div>
+    <div class="galeria">
+      <button class="zdj" data-duze="img/ustawienia.jpg"><div class="okno"><img src="img/ustawienia.jpg" alt="Ustawienia" width="1600" height="1000" loading="lazy"></div><span>Ustawienia</span></button>
+      <button class="zdj" data-duze="img/historia.jpg"><div class="okno"><img src="img/historia.jpg" alt="Historia" width="1600" height="1000" loading="lazy"></div><span>Historia</span></button>
+      <button class="zdj" data-duze="img/o-nazunie.jpg"><div class="okno"><img src="img/o-nazunie.jpg" alt="O Nazunie" width="1600" height="1000" loading="lazy"></div><span>O Nazunie</span></button>
+      <button class="zdj" data-duze="img/klasyczny-jasny.jpg"><div class="okno"><img src="img/klasyczny-jasny.jpg" alt="Klasyczny jasny" width="1600" height="1000" loading="lazy"></div><span>Klasyczny, jasny</span></button>
+      <button class="zdj" data-duze="img/klasyczny-ciemny.jpg"><div class="okno"><img src="img/klasyczny-ciemny.jpg" alt="Klasyczny ciemny" width="1600" height="1000" loading="lazy"></div><span>Klasyczny, ciemny</span></button>
+      <button class="zdj" data-duze="img/kolor-morski.jpg"><div class="okno"><img src="img/kolor-morski.jpg" alt="Mgła w kolorze morskim" width="1600" height="1000" loading="lazy"></div><span>Mgła, morski</span></button>
+    </div>
+  </section>
+
+  <div class="koniec pojaw">
+    <h2>Gotowa, <em>kiedy Ty jesteś</em></h2>
+    <p class="lead">Bloker reklam, osobne ciasteczka dla każdej strony i ostrzeżenia przed oszustwami działają od pierwszej minuty. Bez AI, bez zakładania konta.</p>
+    <a class="przycisk" href="https://github.com/patryktafel/nazuna-updates/releases/latest">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4v11m0 0-4.5-4.5M12 15l4.5-4.5M5 20h14"/></svg>
+      Pobierz Nazunę
+    </a>
+  </div>
+</div>
+
+<footer>
+  <div class="wrap">
+    <p>Nazuna · przeglądarka dla Windows · stworzona przez Tafel</p>
+    <p>Zakładki i liczby na zdjęciach są przykładowe.</p>
+  </div>
+</footer>
+
+<dialog id="podglad"><img alt=""></dialog>
+
+<script>
+// przełączniki kolorów
+document.querySelectorAll('.zakladki').forEach(function (lista) {
+  var obrazy = document.querySelectorAll('.warstwy[data-grupa="' + lista.dataset.grupa + '"] img');
+  lista.addEventListener('click', function (e) {
+    var b = e.target.closest('.zakladka'); if (!b) return;
+    lista.querySelectorAll('.zakladka').forEach(function (x) { x.setAttribute('aria-selected', String(x === b)); });
+    obrazy.forEach(function (img, i) { img.classList.toggle('widoczne', i === Number(b.dataset.img)); });
+  });
+});
+// porównanie przed/po
+var por = document.getElementById('porownanie');
+por.querySelector('input').addEventListener('input', function (e) { por.style.setProperty('--x', e.target.value + '%'); });
+// galeria - podgląd
+var dlg = document.getElementById('podglad');
+document.querySelectorAll('.zdj').forEach(function (b) {
+  b.addEventListener('click', function () { dlg.querySelector('img').src = b.dataset.duze; dlg.querySelector('img').alt = b.textContent.trim(); dlg.showModal(); });
+});
+dlg.addEventListener('click', function () { dlg.close(); });
+// pojawianie się sekcji
+if ('IntersectionObserver' in window) {
+  var io = new IntersectionObserver(function (wpisy) {
+    wpisy.forEach(function (w) { if (w.isIntersecting) { w.target.classList.add('jest'); io.unobserve(w.target); } });
+  }, { threshold: .12 });
+  document.querySelectorAll('.pojaw').forEach(function (el) { io.observe(el); });
+} else {
+  document.querySelectorAll('.pojaw').forEach(function (el) { el.classList.add('jest'); });
+}
+</script>
+</body>
+</html>
