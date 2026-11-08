@@ -184,7 +184,7 @@ footer p { margin: 4px 0; }
       <svg viewBox="0 0 100 100" aria-hidden="true"><ellipse cx="50" cy="27" rx="14" ry="21" fill="#d6ccff"/><ellipse cx="73" cy="50" rx="21" ry="14" fill="#b3a3ff"/><ellipse cx="50" cy="73" rx="14" ry="21" fill="#d6ccff"/><ellipse cx="27" cy="50" rx="21" ry="14" fill="#b3a3ff"/><circle cx="50" cy="50" r="9" fill="#fff"/></svg>
       nazuna
     </a>
-    <a class="przycisk maly" href="https://github.com/patryktafel/nazuna-updates/releases/latest">Pobierz</a>
+    <a class="przycisk maly" data-pobierz href="https://github.com/patryktafel/nazuna-updates/releases/latest">Pobierz</a>
   </header>
 
   <div class="hero">
@@ -200,7 +200,7 @@ footer p { margin: 4px 0; }
     <h1>Nowa Nazuna.<br><em>Lawendowa mgła.</em></h1>
     <p class="lead">Ta sama szybka i prywatna przeglądarka, tylko w nowym, spokojnym wyglądzie: miękkie kolory, szklany pasek i nowa karta, na którą chce się patrzeć.</p>
     <div class="cta">
-      <a class="przycisk" href="https://github.com/patryktafel/nazuna-updates/releases/latest">
+      <a class="przycisk" data-pobierz href="https://github.com/patryktafel/nazuna-updates/releases/latest">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4v11m0 0-4.5-4.5M12 15l4.5-4.5M5 20h14"/></svg>
         Pobierz dla Windows
       </a>
@@ -338,7 +338,7 @@ footer p { margin: 4px 0; }
   <div class="koniec pojaw">
     <h2>Gotowa, <em>kiedy Ty jesteś</em></h2>
     <p class="lead">Bloker reklam, osobne ciasteczka dla każdej strony i ostrzeżenia przed oszustwami działają od pierwszej minuty. Bez AI, bez zakładania konta.</p>
-    <a class="przycisk" href="https://github.com/patryktafel/nazuna-updates/releases/latest">
+    <a class="przycisk" data-pobierz href="https://github.com/patryktafel/nazuna-updates/releases/latest">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4v11m0 0-4.5-4.5M12 15l4.5-4.5M5 20h14"/></svg>
       Pobierz Nazunę
     </a>
@@ -355,6 +355,19 @@ footer p { margin: 4px 0; }
 <dialog id="podglad"><img alt=""></dialog>
 
 <script>
+// przyciski "Pobierz" - od razu najnowszy instalator .exe (gdy GitHub nie odpowie,
+// zostaje link do strony wydania)
+fetch('https://api.github.com/repos/patryktafel/nazuna-updates/releases/latest', { headers: { Accept: 'application/vnd.github+json' } })
+  .then(function (r) { return r.ok ? r.json() : null; })
+  .then(function (rel) {
+    var exe = rel && (rel.assets || []).find(function (a) { return /Instalator\.exe$/i.test(a.name); });
+    if (!exe) return;
+    document.querySelectorAll('[data-pobierz]').forEach(function (a) {
+      a.href = exe.browser_download_url;
+      a.title = exe.name + ' (' + Math.round(exe.size / 1048576) + ' MB)';
+    });
+  })
+  .catch(function () {});
 // przełączniki kolorów
 document.querySelectorAll('.zakladki').forEach(function (lista) {
   var obrazy = document.querySelectorAll('.warstwy[data-grupa="' + lista.dataset.grupa + '"] img');
