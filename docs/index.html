@@ -1,13 +1,13 @@
 <!doctype html>
-<html lang="pl">
+<html lang="pl" data-styl="mgla">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Nazuna - nowy wygląd</title>
-<meta name="description" content="Nazuna 0.1.99: nowy wygląd Lawendowa mgła. Przeglądarka dla Windows, która stawia na prywatność i spokój.">
-<meta property="og:title" content="Nazuna - nowy wygląd">
-<meta property="og:description" content="Lawendowa mgła: nowa karta z zegarem, szklany pasek, ekran powitalny i własne okno prywatne.">
-<meta property="og:image" content="img/nowa-karta.jpg">
+<title>Nazuna - przeglądarka</title>
+<meta name="description" content="Nazuna: szybka i prywatna przeglądarka dla Windows w trzech wyglądach - Lawendowa mgła, Washi (japoński ogród sakury, dzień i noc) i Klasyczny.">
+<meta property="og:title" content="Nazuna - przeglądarka w trzech wyglądach">
+<meta property="og:description" content="Lawendowa mgła, Washi za dnia i nocą, Klasyczny. Bloker reklam, osobne ciasteczka dla każdej strony, bez konta i bez AI.">
+<meta property="og:image" content="img/washi-noc-nowa-karta.jpg">
 <link rel="icon" href="img/ikona.png">
 <style>
 @font-face { font-family: 'Nunito'; src: url(fonts/Nunito-latin.woff2) format('woff2'); font-weight: 200 1000; font-display: swap; unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215; }
@@ -15,146 +15,180 @@
 @font-face { font-family: 'Fraunces'; src: url(fonts/Fraunces-latin.woff2) format('woff2'); font-weight: 100 900; font-display: swap; unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215; }
 @font-face { font-family: 'Fraunces'; src: url(fonts/Fraunces-latin-ext.woff2) format('woff2'); font-weight: 100 900; font-display: swap; unicode-range: U+0100-02AF, U+1E00-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF; }
 
-:root {
-  --bg: #15131f;
-  --bg-2: #1b1830;
-  --szklo: rgba(32, 27, 58, 0.55);
-  --obwodka: rgba(255, 255, 255, 0.09);
-  --tekst: #f2f0ff;
-  --tekst-2: #d6d1f2;
-  --tekst-3: #a9a5c4;
-  --akcent: #c9bcff;
-  --akcent-2: #a996ff;
-  --turkus: #8fe6e1;
-  --ease: cubic-bezier(.2, .8, .2, 1);
+/* ------------------------------------------------ cztery wyglady strony
+   Strona przebiera sie razem z wybranym wygladem Nazuny (przelacznik u gory). */
+:root, :root[data-styl="mgla"] {
+  --bg: #15131f; --bg-2: #1b1830; --szklo: rgba(32, 27, 58, 0.55); --obwodka: rgba(255, 255, 255, 0.09);
+  --tekst: #f2f0ff; --tekst-2: #d6d1f2; --tekst-3: #a9a5c4;
+  --akcent: #c9bcff; --akcent-2: #a996ff; --na-akcencie: #1b1830; --cien-akcentu: rgba(169, 150, 255, .35);
+  --plama-1: #5b47c9; --plama-2: #d977b6; --plama-3: #6fb8ff; --plamy: .45;
+  --platek-1: #d6ccff; --platek-2: #b3a3ff; --srodek: #ffffff;
+  --gora: #2b2350;
   color-scheme: dark;
 }
+:root[data-styl="washi"] {
+  --bg: #f4eee2; --bg-2: #fffdf8; --szklo: rgba(255, 253, 248, 0.78); --obwodka: rgba(38, 34, 29, 0.11);
+  --tekst: #26221d; --tekst-2: #4f463c; --tekst-3: #7d7262;
+  --akcent: #b9506f; --akcent-2: #d97a96; --na-akcencie: #fffdf8; --cien-akcentu: rgba(185, 80, 111, .28);
+  --plama-1: #f3c1cf; --plama-2: #ead9bd; --plama-3: #f6d5de; --plamy: .55;
+  --platek-1: #eaa2b6; --platek-2: #d97a96; --srodek: #fffdf8;
+  --gora: #fffaf1;
+  color-scheme: light;
+}
+:root[data-styl="washi-noc"] {
+  --bg: #08070a; --bg-2: #110e12; --szklo: rgba(20, 15, 20, 0.72); --obwodka: rgba(255, 140, 180, 0.10);
+  --tekst: #f6eaf0; --tekst-2: #d7c3cd; --tekst-3: #9c8792;
+  --akcent: #ff6f9f; --akcent-2: #ff9cbe; --na-akcencie: #1a0710; --cien-akcentu: rgba(255, 80, 140, .45);
+  --plama-1: #7a0c38; --plama-2: #ff2f7a; --plama-3: #2a0716; --plamy: .3;
+  --platek-1: #ff9cbe; --platek-2: #ff5c97; --srodek: #08070a;
+  --gora: #1c0b14;
+  color-scheme: dark;
+}
+:root[data-styl="klasyczny"] {
+  --bg: #0e0f13; --bg-2: #16171c; --szklo: rgba(28, 30, 38, 0.72); --obwodka: rgba(255, 255, 255, 0.08);
+  --tekst: #eceef4; --tekst-2: #c3c7d2; --tekst-3: #8b90a0;
+  --akcent: #8b7cff; --akcent-2: #a99cff; --na-akcencie: #ffffff; --cien-akcentu: rgba(139, 124, 255, .35);
+  --plama-1: #2b2f48; --plama-2: #1f2233; --plama-3: #26304a; --plamy: .5;
+  --platek-1: #d6ccff; --platek-2: #b3a3ff; --srodek: #ffffff;
+  --gora: #1a1c24;
+  color-scheme: dark;
+}
+:root { --ease: cubic-bezier(.2, .8, .2, 1); --turkus: #8fe6e1; }
 * { box-sizing: border-box; }
 html { scroll-behavior: smooth; }
 body {
   margin: 0; background: var(--bg); color: var(--tekst);
   font: 17px/1.65 'Nunito', system-ui, sans-serif; overflow-x: hidden;
   -webkit-font-smoothing: antialiased;
+  transition: background-color .6s var(--ease), color .6s var(--ease);
 }
 img { max-width: 100%; display: block; }
 a { color: var(--akcent); }
 
-/* mgła w tle */
-.mgla { position: fixed; inset: 0; z-index: -1; overflow: hidden; pointer-events: none; background: radial-gradient(1100px 640px at 50% -8%, #2b2350, var(--bg) 70%); }
-.mgla i { position: absolute; border-radius: 50%; filter: blur(110px); opacity: .45; animation: dryf 26s ease-in-out infinite alternate; }
-.mgla i:nth-child(1) { width: 560px; height: 560px; left: -160px; top: 10%; background: #5b47c9; }
-.mgla i:nth-child(2) { width: 480px; height: 480px; right: -140px; top: 38%; background: #d977b6; opacity: .28; animation-delay: -9s; }
-.mgla i:nth-child(3) { width: 520px; height: 520px; left: 30%; bottom: -260px; background: #6fb8ff; opacity: .22; animation-delay: -17s; }
+.mgla { position: fixed; inset: 0; z-index: -1; overflow: hidden; pointer-events: none; background: radial-gradient(1100px 640px at 50% -8%, var(--gora), var(--bg) 70%); transition: background .6s var(--ease); }
+.mgla i { position: absolute; border-radius: 50%; filter: blur(110px); opacity: var(--plamy); animation: dryf 26s ease-in-out infinite alternate; transition: background-color .8s var(--ease), opacity .8s; }
+.mgla i:nth-child(1) { width: 560px; height: 560px; left: -160px; top: 10%; background: var(--plama-1); }
+.mgla i:nth-child(2) { width: 480px; height: 480px; right: -140px; top: 38%; background: var(--plama-2); animation-delay: -9s; }
+.mgla i:nth-child(3) { width: 520px; height: 520px; left: 30%; bottom: -260px; background: var(--plama-3); animation-delay: -17s; }
 @keyframes dryf { to { transform: translate(60px, -40px) scale(1.12); } }
 
 .wrap { width: min(1120px, 100% - 32px); margin: 0 auto; }
 
-/* nagłówek */
 header.gora { display: flex; align-items: center; justify-content: space-between; padding: 22px 0; }
 .znak { display: flex; align-items: center; gap: 12px; text-decoration: none; color: var(--akcent); font-weight: 800; letter-spacing: 7px; font-size: 16px; }
 .znak svg { width: 34px; height: 34px; }
 .przycisk {
   display: inline-flex; align-items: center; gap: 10px; padding: 13px 26px; border-radius: 999px;
-  background: var(--akcent); color: #1b1830; font-weight: 800; text-decoration: none; font-size: 16px;
-  box-shadow: 0 10px 34px rgba(169, 150, 255, .35); transition: transform .25s var(--ease), box-shadow .25s;
+  background: var(--akcent); color: var(--na-akcencie); font-weight: 800; text-decoration: none; font-size: 16px;
+  box-shadow: 0 10px 34px var(--cien-akcentu); transition: transform .25s var(--ease), box-shadow .25s, background-color .6s, color .6s;
 }
-.przycisk:hover { transform: translateY(-2px); box-shadow: 0 14px 40px rgba(169, 150, 255, .5); }
+.przycisk:hover { transform: translateY(-2px); }
 .przycisk.maly { padding: 9px 18px; font-size: 14.5px; box-shadow: none; }
 .przycisk svg { width: 18px; height: 18px; }
-.przycisk:focus-visible, .zakladka:focus-visible, .zdj:focus-visible { outline: 2px solid var(--akcent); outline-offset: 3px; }
+.przycisk:focus-visible, .zakladka:focus-visible, .zdj:focus-visible, .styl:focus-visible, .wyglad:focus-visible { outline: 2px solid var(--akcent); outline-offset: 3px; }
 
-/* hero */
-.hero { text-align: center; padding: 40px 0 30px; }
-.kwiat { width: 110px; height: 110px; margin: 0 auto 14px; overflow: visible; filter: drop-shadow(0 16px 34px rgba(169, 150, 255, .35)); }
-.kwiat .pl, .kwiat .sr { transform-box: fill-box; transform-origin: center; animation: rozkwit .7s var(--ease) both; }
+/* przelacznik wygladu */
+.style { display: inline-flex; flex-wrap: wrap; justify-content: center; gap: 6px; padding: 6px; border-radius: 999px; background: var(--szklo); box-shadow: inset 0 0 0 1px var(--obwodka); backdrop-filter: blur(14px); }
+.styl { border: 0; cursor: pointer; display: inline-flex; align-items: center; gap: 9px; padding: 9px 16px; border-radius: 999px; background: transparent; color: var(--tekst-2); font: 700 15px 'Nunito', sans-serif; transition: background .25s, color .25s; }
+.styl:hover { color: var(--tekst); }
+.styl[aria-pressed="true"] { background: var(--akcent); color: var(--na-akcencie); }
+.kropka { width: 14px; height: 14px; border-radius: 50%; flex: none; box-shadow: inset 0 0 0 1px rgba(128, 128, 128, .35); }
+.k-mgla { background: linear-gradient(135deg, #5b47c9, #d977b6); }
+.k-washi { background: linear-gradient(135deg, #f6f1e7 55%, #eaa2b6 56%); }
+.k-washi-noc { background: linear-gradient(135deg, #08070a 55%, #ff5c97 56%); }
+.k-klasyczny { background: linear-gradient(135deg, #16171c 55%, #8b7cff 56%); }
+.przymiarka { margin-bottom: 12px; color: var(--tekst-3); font-size: 14px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; }
+
+.hero { text-align: center; padding: 30px 0 30px; }
+.kwiat { width: 104px; height: 104px; margin: 0 auto 14px; overflow: visible; filter: drop-shadow(0 16px 34px var(--cien-akcentu)); }
+.kwiat .pl, .kwiat .sr { transform-box: fill-box; transform-origin: center; animation: rozkwit .7s var(--ease) both; transition: fill .6s; }
+.kwiat .p1, .kwiat .p3 { fill: var(--platek-1); } .kwiat .p2, .kwiat .p4 { fill: var(--platek-2); } .kwiat .sr { fill: var(--srodek); }
 .kwiat .p2 { animation-delay: .12s; } .kwiat .p3 { animation-delay: .24s; } .kwiat .p4 { animation-delay: .36s; } .kwiat .sr { animation-delay: .5s; }
+.kwiat .po { fill: var(--akcent-2); opacity: .12; }
 @keyframes rozkwit { from { transform: scale(0); opacity: 0; } 70% { transform: scale(1.08); opacity: 1; } to { transform: scale(1); } }
-.etykieta { display: inline-block; padding: 4px 14px; border-radius: 999px; background: rgba(201, 188, 255, .12); color: var(--akcent); font-weight: 700; font-size: 14px; box-shadow: inset 0 0 0 1px rgba(201, 188, 255, .22); }
+.etykieta { display: inline-block; padding: 4px 14px; border-radius: 999px; background: color-mix(in srgb, var(--akcent) 14%, transparent); color: var(--akcent); font-weight: 700; font-size: 14px; box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--akcent) 28%, transparent); }
 h1, h2 { font-family: 'Fraunces', Georgia, serif; font-weight: 500; letter-spacing: -.5px; line-height: 1.12; margin: 0; }
 h1 { font-size: clamp(38px, 6.4vw, 72px); margin: 18px 0 16px; }
-h1 em, h2 em { font-style: italic; color: var(--akcent); }
-.lead { max-width: 640px; margin: 0 auto 30px; color: var(--tekst-2); font-size: 19px; }
-.cta { display: flex; gap: 16px; justify-content: center; align-items: center; flex-wrap: wrap; }
+h1 em, h2 em { font-style: italic; color: var(--akcent); transition: color .6s; }
+.lead { max-width: 660px; margin: 0 auto 26px; color: var(--tekst-2); font-size: 19px; min-height: 3.3em; }
+.cta { display: flex; gap: 16px; justify-content: center; align-items: center; flex-wrap: wrap; margin-top: 28px; }
 .cta small { color: var(--tekst-3); font-size: 14px; }
+.jp { font-family: "Yu Mincho", "Hiragino Mincho ProN", serif; }
 
-/* okno ze zrzutem */
-.okno {
-  position: relative; border-radius: 16px; overflow: hidden; background: var(--bg-2);
-  box-shadow: 0 0 0 1px var(--obwodka), 0 40px 90px -20px rgba(0, 0, 0, .7), 0 0 120px -30px rgba(169, 150, 255, .35);
-}
-.okno img { width: 100%; height: auto; aspect-ratio: 16 / 10; object-fit: cover; }
-.hero .okno { margin-top: 54px; animation: wjazd 1s var(--ease) .2s both; }
+.okno { position: relative; border-radius: 16px; overflow: hidden; background: var(--bg-2); box-shadow: 0 0 0 1px var(--obwodka), 0 40px 90px -24px rgba(0, 0, 0, .55), 0 0 120px -30px var(--cien-akcentu); transition: box-shadow .6s; }
+.okno img { width: 100%; height: auto; aspect-ratio: 16 / 10; object-fit: cover; transition: opacity .35s var(--ease); }
+.okno img.zmiana { opacity: 0; }
+.hero .okno { margin-top: 46px; animation: wjazd 1s var(--ease) .2s both; }
 @keyframes wjazd { from { opacity: 0; transform: translateY(40px) scale(.97); } }
 
-/* sekcje */
 section { padding: 90px 0 10px; }
-.naglowek { max-width: 700px; margin-bottom: 34px; }
+.naglowek { max-width: 720px; margin-bottom: 34px; }
 .naglowek.srodek { margin-inline: auto; text-align: center; }
 h2 { font-size: clamp(30px, 4.2vw, 46px); margin: 10px 0 14px; }
 .naglowek p { color: var(--tekst-2); margin: 0; }
 .nr { color: var(--akcent-2); font-weight: 800; font-size: 14px; letter-spacing: 3px; text-transform: uppercase; }
 
-/* przełączniki */
-.zakladki { display: inline-flex; flex-wrap: wrap; gap: 6px; padding: 6px; border-radius: 999px; background: var(--szklo); box-shadow: inset 0 0 0 1px var(--obwodka); margin-bottom: 20px; backdrop-filter: blur(12px); }
-.zakladka { border: 0; cursor: pointer; display: inline-flex; align-items: center; gap: 9px; padding: 9px 18px; border-radius: 999px; background: transparent; color: var(--tekst-2); font: 700 15px 'Nunito', sans-serif; transition: background .2s, color .2s; }
-.zakladka:hover { color: var(--tekst); }
-.zakladka[aria-selected="true"] { background: rgba(255, 255, 255, .14); color: var(--tekst); }
-.kropka { width: 14px; height: 14px; border-radius: 50%; box-shadow: inset 0 0 0 1px rgba(255,255,255,.25); }
-.warstwy { position: relative; }
-.warstwy img { transition: opacity .45s var(--ease); }
-.warstwy img + img { position: absolute; inset: 0; }
-.warstwy img:not(.widoczne) { opacity: 0; }
+/* cztery wyglady - karty */
+.wyglady { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
+.wyglad { border: 0; padding: 0; cursor: pointer; text-align: left; font: inherit; color: inherit; background: var(--szklo); border-radius: 18px; overflow: hidden; box-shadow: inset 0 0 0 1px var(--obwodka); transition: transform .25s var(--ease), box-shadow .25s; }
+.wyglad:hover { transform: translateY(-4px); }
+.wyglad[aria-pressed="true"] { box-shadow: inset 0 0 0 2px var(--akcent), 0 18px 40px -20px var(--cien-akcentu); }
+.wyglad img { width: 100%; aspect-ratio: 16 / 10; object-fit: cover; }
+.wyglad b { display: block; padding: 12px 14px 2px; font-size: 16px; }
+.wyglad span { display: block; padding: 0 14px 14px; font-size: 14px; color: var(--tekst-3); line-height: 1.45; }
 
-/* siatka cech */
 .cechy { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; margin-top: 36px; }
 .cecha { padding: 24px; border-radius: 20px; background: var(--szklo); box-shadow: inset 0 0 0 1px var(--obwodka); backdrop-filter: blur(14px); }
-.cecha .ik { width: 42px; height: 42px; border-radius: 13px; display: grid; place-items: center; background: rgba(201, 188, 255, .14); color: var(--akcent); margin-bottom: 14px; }
+.cecha .ik { width: 42px; height: 42px; border-radius: 13px; display: grid; place-items: center; background: color-mix(in srgb, var(--akcent) 14%, transparent); color: var(--akcent); margin-bottom: 14px; }
 .cecha .ik svg { width: 22px; height: 22px; }
 .cecha h3 { margin: 0 0 6px; font-size: 18px; }
 .cecha p { margin: 0; color: var(--tekst-3); font-size: 15.5px; line-height: 1.6; }
 
-/* dwie kolumny */
 .dwie { display: grid; grid-template-columns: 1fr 1.35fr; gap: 50px; align-items: center; }
 .dwie.odwr { grid-template-columns: 1.35fr 1fr; }
 .dwie.odwr .tekst { order: 2; }
+.tekst > p { color: var(--tekst-2); }
 .lista { list-style: none; padding: 0; margin: 20px 0 0; display: grid; gap: 12px; }
 .lista li { display: flex; gap: 12px; color: var(--tekst-2); }
 .lista li::before { content: ''; flex: none; width: 8px; height: 8px; margin-top: 10px; border-radius: 50%; background: var(--akcent); box-shadow: 0 0 12px var(--akcent); }
 .prywatne .lista li::before { background: var(--turkus); box-shadow: 0 0 12px var(--turkus); }
 .prywatne .nr, .prywatne h2 em { color: var(--turkus); }
-.prywatne .okno { box-shadow: 0 0 0 1px rgba(143, 230, 225, .18), 0 40px 90px -20px rgba(0, 0, 0, .7), 0 0 120px -30px rgba(79, 201, 196, .4); }
 
-/* porównanie przed/po */
+.zakladki { display: inline-flex; flex-wrap: wrap; gap: 6px; padding: 6px; border-radius: 999px; background: var(--szklo); box-shadow: inset 0 0 0 1px var(--obwodka); margin-bottom: 20px; }
+.zakladka { border: 0; cursor: pointer; display: inline-flex; align-items: center; gap: 9px; padding: 9px 18px; border-radius: 999px; background: transparent; color: var(--tekst-2); font: 700 15px 'Nunito', sans-serif; }
+.zakladka[aria-selected="true"] { background: color-mix(in srgb, var(--tekst) 14%, transparent); color: var(--tekst); }
+.warstwy { position: relative; }
+.warstwy img + img { position: absolute; inset: 0; }
+.warstwy img:not(.widoczne) { opacity: 0; }
+
+/* Washi: dzien i noc - suwak */
 .porownanie { position: relative; user-select: none; touch-action: pan-y; cursor: ew-resize; }
 .porownanie .po { position: absolute; inset: 0; clip-path: inset(0 0 0 var(--x, 50%)); }
 .porownanie .po img { width: 100%; height: 100%; }
 .suwak { position: absolute; top: 0; bottom: 0; left: var(--x, 50%); width: 2px; margin-left: -1px; background: #fff; box-shadow: 0 0 18px rgba(0,0,0,.5); pointer-events: none; }
-.suwak::after { content: '\2194'; position: absolute; top: 50%; left: 50%; width: 46px; height: 46px; margin: -23px 0 0 -23px; border-radius: 50%; background: #fff; color: #1b1830; display: grid; place-items: center; font-size: 22px; font-weight: 800; box-shadow: 0 6px 20px rgba(0,0,0,.4); }
+.suwak::after { content: '\2194'; position: absolute; top: 50%; left: 50%; width: 46px; height: 46px; margin: -23px 0 0 -23px; border-radius: 50%; background: #fff; color: #26221d; display: grid; place-items: center; font-size: 22px; font-weight: 800; box-shadow: 0 6px 20px rgba(0,0,0,.4); }
 .porownanie input { position: absolute; inset: 0; width: 100%; height: 100%; opacity: 0; cursor: ew-resize; margin: 0; }
 .podpisy { display: flex; justify-content: space-between; margin-top: 12px; color: var(--tekst-3); font-size: 14.5px; font-weight: 700; }
 
-/* galeria */
-.galeria { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
+.galeria { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
 .zdj { padding: 0; border: 0; background: none; cursor: zoom-in; text-align: left; color: inherit; font: inherit; }
 .zdj .okno { border-radius: 12px; transition: transform .3s var(--ease); }
 .zdj:hover .okno { transform: translateY(-4px); }
-.zdj span { display: block; margin-top: 10px; font-weight: 700; color: var(--tekst-2); font-size: 15.5px; }
-
-/* podgląd na cały ekran */
+.zdj span { display: block; margin-top: 10px; font-weight: 700; color: var(--tekst-2); font-size: 15px; }
 dialog { border: 0; padding: 0; background: transparent; max-width: min(1500px, 96vw); max-height: 94vh; }
-dialog::backdrop { background: rgba(10, 8, 22, .85); backdrop-filter: blur(6px); }
+dialog::backdrop { background: rgba(10, 8, 12, .85); backdrop-filter: blur(6px); }
 dialog img { max-height: 90vh; width: auto; border-radius: 12px; cursor: zoom-out; }
 
-/* stopka */
 .koniec { text-align: center; padding: 110px 0 60px; }
-.koniec .lead { margin-bottom: 26px; }
+.koniec .lead { min-height: 0; }
 footer { padding: 30px 0 50px; color: var(--tekst-3); font-size: 14px; text-align: center; border-top: 1px solid var(--obwodka); }
 footer p { margin: 4px 0; }
 
 .pojaw { opacity: 0; transform: translateY(26px); transition: opacity .8s var(--ease), transform .8s var(--ease); }
 .pojaw.jest { opacity: 1; transform: none; }
 
-@media (max-width: 860px) {
+@media (max-width: 900px) {
+  .wyglady { grid-template-columns: 1fr 1fr; }
   .cechy, .galeria { grid-template-columns: 1fr 1fr; }
   .dwie, .dwie.odwr { grid-template-columns: 1fr; gap: 26px; }
   .dwie.odwr .tekst { order: 0; }
@@ -162,12 +196,11 @@ footer p { margin: 4px 0; }
 }
 @media (max-width: 560px) {
   body { font-size: 16px; }
-  .cechy, .galeria { grid-template-columns: 1fr; }
+  .cechy { grid-template-columns: 1fr; }
   header.gora .przycisk { display: none; }
   .lead { font-size: 17px; }
-  .hero .okno { margin-top: 36px; }
   .okno { border-radius: 10px; }
-  .zakladka { padding: 8px 13px; font-size: 14px; }
+  .styl { padding: 8px 12px; font-size: 14px; }
 }
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation: none !important; transition: none !important; }
@@ -181,7 +214,7 @@ footer p { margin: 4px 0; }
 <div class="wrap">
   <header class="gora">
     <a class="znak" href="#">
-      <svg viewBox="0 0 100 100" aria-hidden="true"><ellipse cx="50" cy="27" rx="14" ry="21" fill="#d6ccff"/><ellipse cx="73" cy="50" rx="21" ry="14" fill="#b3a3ff"/><ellipse cx="50" cy="73" rx="14" ry="21" fill="#d6ccff"/><ellipse cx="27" cy="50" rx="21" ry="14" fill="#b3a3ff"/><circle cx="50" cy="50" r="9" fill="#fff"/></svg>
+      <svg viewBox="0 0 100 100" aria-hidden="true"><ellipse cx="50" cy="27" rx="14" ry="21" style="fill:var(--platek-1)"/><ellipse cx="73" cy="50" rx="21" ry="14" style="fill:var(--platek-2)"/><ellipse cx="50" cy="73" rx="14" ry="21" style="fill:var(--platek-1)"/><ellipse cx="27" cy="50" rx="21" ry="14" style="fill:var(--platek-2)"/><circle cx="50" cy="50" r="9" style="fill:var(--srodek)"/></svg>
       nazuna
     </a>
     <a class="przycisk maly" data-pobierz href="https://github.com/patryktafel/nazuna-updates/releases/latest">Pobierz</a>
@@ -189,16 +222,23 @@ footer p { margin: 4px 0; }
 
   <div class="hero">
     <svg class="kwiat" viewBox="0 0 100 100" aria-hidden="true">
-      <circle cx="50" cy="50" r="46" fill="#a996ff" opacity=".1"/>
-      <ellipse class="pl p1" cx="50" cy="27" rx="14" ry="21" fill="#d6ccff"/>
-      <ellipse class="pl p2" cx="73" cy="50" rx="21" ry="14" fill="#b3a3ff"/>
-      <ellipse class="pl p3" cx="50" cy="73" rx="14" ry="21" fill="#d6ccff"/>
-      <ellipse class="pl p4" cx="27" cy="50" rx="21" ry="14" fill="#b3a3ff"/>
-      <circle class="sr" cx="50" cy="50" r="9" fill="#fff"/>
+      <circle class="po" cx="50" cy="50" r="46"/>
+      <ellipse class="pl p1" cx="50" cy="27" rx="14" ry="21"/>
+      <ellipse class="pl p2" cx="73" cy="50" rx="21" ry="14"/>
+      <ellipse class="pl p3" cx="50" cy="73" rx="14" ry="21"/>
+      <ellipse class="pl p4" cx="27" cy="50" rx="21" ry="14"/>
+      <circle class="sr" cx="50" cy="50" r="9"/>
     </svg>
-    <span class="etykieta">Nowość: Washi, japoński ogród dzień i noc</span>
-    <h1>Nowa Nazuna.<br><em>Lawendowa mgła.</em></h1>
-    <p class="lead">Ta sama szybka i prywatna przeglądarka, tylko w nowym, spokojnym wyglądzie: miękkie kolory, szklany pasek i nowa karta, na którą chce się patrzeć.</p>
+    <span class="etykieta" id="wersja">Nowość: Washi, japoński ogród za dnia i nocą</span>
+    <h1>Nazuna w <em id="tytulStylu">Lawendowej mgle.</em></h1>
+    <p class="lead" id="opisStylu">Miękkie plamy koloru, pasek jak matowe szkło i nowa karta, na którą chce się patrzeć.</p>
+    <div class="przymiarka">Przymierz wygląd</div>
+    <div class="style" role="group" aria-label="Wybierz wygląd strony i zdjęć">
+      <button class="styl" data-styl="mgla" aria-pressed="true"><span class="kropka k-mgla"></span>Lawendowa mgła</button>
+      <button class="styl" data-styl="washi" aria-pressed="false"><span class="kropka k-washi"></span>Washi dzień</button>
+      <button class="styl" data-styl="washi-noc" aria-pressed="false"><span class="kropka k-washi-noc"></span>Washi noc</button>
+      <button class="styl" data-styl="klasyczny" aria-pressed="false"><span class="kropka k-klasyczny"></span>Klasyczny</button>
+    </div>
     <div class="cta">
       <a class="przycisk" data-pobierz href="https://github.com/patryktafel/nazuna-updates/releases/latest">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4v11m0 0-4.5-4.5M12 15l4.5-4.5M5 20h14"/></svg>
@@ -206,8 +246,47 @@ footer p { margin: 4px 0; }
       </a>
       <small>Darmowa · bez konta · masz już Nazunę? Zaktualizuje się sama</small>
     </div>
-    <div class="okno"><img src="img/nowa-karta.jpg" alt="Nowa karta w Nazunie: duży zegar, powitanie, wyszukiwarka i kafelki ulubionych stron na lawendowym tle" width="1600" height="1000"></div>
+    <div class="okno"><img data-widok="nowa-karta" src="img/mgla-nowa-karta.jpg" alt="Nowa karta w Nazunie" width="1600" height="1000"></div>
   </div>
+
+  <section class="pojaw">
+    <div class="naglowek srodek">
+      <span class="nr">Trzy wyglądy</span>
+      <h2>Wybierz, w czym <em>Ci dobrze</em></h2>
+      <p>Każdy wygląd zmienia całą przeglądarkę: pasek, nową kartę, ustawienia i wszystkie strony Nazuny. Kliknij, żeby przymierzyć.</p>
+    </div>
+    <div class="wyglady">
+      <button class="wyglad" data-styl="mgla" aria-pressed="true"><img src="img/mgla-nowa-karta.jpg" alt="" loading="lazy"><b>Lawendowa mgła</b><span>Miękkie fioletowe plamy i szklany pasek</span></button>
+      <button class="wyglad" data-styl="washi" aria-pressed="false"><img src="img/washi-nowa-karta.jpg" alt="" loading="lazy"><b>Washi dzień</b><span>Kremowy papier i pastelowe drzewo sakury</span></button>
+      <button class="wyglad" data-styl="washi-noc" aria-pressed="false"><img src="img/washi-noc-nowa-karta.jpg" alt="" loading="lazy"><b>Washi noc</b><span>Głęboka czerń i świecąca sakura</span></button>
+      <button class="wyglad" data-styl="klasyczny" aria-pressed="false"><img src="img/klasyczny-nowa-karta.jpg" alt="" loading="lazy"><b>Klasyczny</b><span>Prosty wygląd sprzed zmiany</span></button>
+    </div>
+  </section>
+
+  <section class="pojaw">
+    <div class="dwie odwr">
+      <div class="tekst">
+        <span class="nr">Nowość · Washi</span>
+        <h2>Japoński ogród <em>za dnia i nocą</em></h2>
+        <p>Za dnia kremowy papier z pastelową sakurą, nocą głęboka czerń i świecące różowe drzewo. Pora zmienia się sama razem z przyciskiem słońca i księżyca albo na stałe w ustawieniach.</p>
+        <ul class="lista">
+          <li>Logo Nazuny z pieczęcią <span class="jp">薺</span>, tak po japońsku pisze się „nazuna”</li>
+          <li>Dawna japońska nazwa miesiąca, np. <span class="jp">霜月</span> · shimotsuki, miesiąc szronu</li>
+          <li>Powitanie po japońsku według pory dnia: <span class="jp">こんばんは</span> · konbanwa</li>
+          <li>Okno prywatne zostaje turkusowe, żeby od razu było widać różnicę</li>
+        </ul>
+      </div>
+      <div>
+        <div class="okno porownanie" id="porownanie">
+          <img src="img/washi-nowa-karta.jpg" alt="Washi dzień" width="1600" height="1000" loading="lazy">
+          <div class="po"><img src="img/washi-noc-nowa-karta.jpg" alt="Washi noc" width="1600" height="1000" loading="lazy"></div>
+          <div class="suwak"></div>
+          <input type="range" min="0" max="100" value="50" aria-label="Przesuń, żeby porównać Washi za dnia i nocą">
+        </div>
+        <div class="podpisy"><span>← Dzień</span><span>Noc →</span></div>
+      </div>
+    </div>
+  </section>
 
   <section class="pojaw">
     <div class="naglowek srodek">
@@ -219,7 +298,7 @@ footer p { margin: 4px 0; }
       <div class="cecha">
         <div class="ik"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></div>
         <h3>Zegar i powitanie</h3>
-        <p>Rano „Dzień dobry”, wieczorem „Dobry wieczór”. Drobiazg, który robi różnicę.</p>
+        <p>Rano „Dzień dobry”, wieczorem „Dobry wieczór”. W Washi jeszcze po japońsku.</p>
       </div>
       <div class="cecha">
         <div class="ik"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M12 3 5 6v5c0 4.5 3 8.3 7 10 4-1.7 7-5.5 7-10V6l-7-3Z"/></svg></div>
@@ -229,62 +308,8 @@ footer p { margin: 4px 0; }
       <div class="cecha">
         <div class="ik"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5Z"/></svg></div>
         <h3>Słońce i księżyc</h3>
-        <p>Jeden przycisk na pasku przełącza strony między jasnym a ciemnym wyglądem. Domyślnie jak w Windows.</p>
+        <p>Jeden przycisk na pasku przełącza strony między jasnym a ciemnym. W Washi zmienia też porę dnia.</p>
       </div>
-    </div>
-  </section>
-
-  <section class="pojaw">
-    <div class="naglowek">
-      <span class="nr">Kolory</span>
-      <h2>Wybierz <em>swój nastrój</em></h2>
-      <p>W Lawendowej mgle trzy zestawy kolorów tła. Zmiana działa od razu, w całej przeglądarce.</p>
-    </div>
-    <div class="zakladki" role="tablist" aria-label="Kolory tła" data-grupa="tlo">
-      <button class="zakladka" role="tab" aria-selected="true" data-img="0"><span class="kropka" style="background:linear-gradient(135deg,#5b47c9,#d977b6)"></span>Lawenda</button>
-      <button class="zakladka" role="tab" aria-selected="false" data-img="1"><span class="kropka" style="background:linear-gradient(135deg,#d977b6,#ffb199)"></span>Róż</button>
-      <button class="zakladka" role="tab" aria-selected="false" data-img="2"><span class="kropka" style="background:linear-gradient(135deg,#2c64dc,#4696ff)"></span>Morski</button>
-    </div>
-    <div class="okno warstwy" data-grupa="tlo">
-      <img class="widoczne" src="img/nowa-karta.jpg" alt="Tło lawendowe" width="1600" height="1000">
-      <img src="img/kolor-roz.jpg" alt="Tło różowe" width="1600" height="1000" loading="lazy">
-      <img src="img/kolor-morski.jpg" alt="Tło morskie, głęboki błękit" width="1600" height="1000" loading="lazy">
-    </div>
-  </section>
-
-  <section class="pojaw">
-    <div class="naglowek">
-      <span class="nr">Trzy wyglądy</span>
-      <h2>Mgła, papier <em>albo klasyka</em></h2>
-      <p>Lawendowa mgła, japoński ogród Washi (za dnia papier, nocą świecąca sakura) albo Klasyczny wygląd sprzed zmiany. Przełączasz jednym kliknięciem w ustawieniach.</p>
-    </div>
-    <div class="zakladki" role="tablist" aria-label="Wygląd Nazuny" data-grupa="wyglad">
-      <button class="zakladka" role="tab" aria-selected="true" data-img="0"><span class="kropka" style="background:linear-gradient(135deg,#5b47c9,#1b1830)"></span>Lawendowa mgła</button>
-      <button class="zakladka" role="tab" aria-selected="false" data-img="1"><span class="kropka" style="background:linear-gradient(135deg,#f6f1e7 55%,#eaa2b6 56%)"></span>Washi dzień</button>
-      <button class="zakladka" role="tab" aria-selected="false" data-img="2"><span class="kropka" style="background:linear-gradient(135deg,#08070a 55%,#ff5c97 56%)"></span>Washi noc</button>
-      <button class="zakladka" role="tab" aria-selected="false" data-img="3"><span class="kropka" style="background:#121419"></span>Klasyczny</button>
-    </div>
-    <div class="okno warstwy" data-grupa="wyglad">
-      <img class="widoczne" src="img/nowa-karta.jpg" alt="Wygląd Lawendowa mgła" width="1600" height="1000" loading="lazy">
-      <img src="img/washi-nowa-karta.jpg" alt="Washi dzień: kremowy papier, pastelowe drzewo sakury i logo z pieczęcią" width="1600" height="1000" loading="lazy">
-      <img src="img/washi-noc-nowa-karta.jpg" alt="Washi noc: głęboka czerń i świecące różowe drzewo sakury" width="1600" height="1000" loading="lazy">
-      <img src="img/klasyczny-ciemny.jpg" alt="Wygląd Klasyczny" width="1600" height="1000" loading="lazy">
-    </div>
-  </section>
-
-  <section class="pojaw">
-    <div class="dwie odwr">
-      <div class="tekst">
-        <span class="nr">Washi</span>
-        <h2>Japoński ogród <em>za dnia i nocą</em></h2>
-        <p style="color:var(--tekst-2)">Za dnia kremowy papier z pastelową sakurą, nocą głęboka czerń i świecące różowe drzewo. Pora zmienia się sama razem z przyciskiem słońca i księżyca.</p>
-        <ul class="lista">
-          <li>Logo Nazuny z pieczęcią 薺 (tak po japońsku pisze się „nazuna”)</li>
-          <li>Dawna japońska nazwa miesiąca i powitanie, np. こんばんは · konbanwa</li>
-          <li>Okno prywatne zostaje turkusowe, żeby od razu było widać różnicę</li>
-        </ul>
-      </div>
-      <div class="okno"><img src="img/washi-noc-strona.jpg" alt="Washi noc: ciemny pasek nad stroną Wikipedii" width="1600" height="1000" loading="lazy"></div>
     </div>
   </section>
 
@@ -292,15 +317,15 @@ footer p { margin: 4px 0; }
     <div class="dwie">
       <div class="tekst">
         <span class="nr">Pasek</span>
-        <h2>Szkło nad <em>każdą stroną</em></h2>
-        <p style="color:var(--tekst-2)">Karty jak zaokrąglone pigułki, pasek adresu jak z matowego szkła. Lekko, czytelnie i bez zbędnych przycisków.</p>
+        <h2>Spokojnie nad <em>każdą stroną</em></h2>
+        <p>Karty jak zaokrąglone pigułki i czytelny pasek adresu, bez zbędnych przycisków.</p>
         <ul class="lista">
           <li>Zakładki na pasku z ikonami stron</li>
           <li>Tarcza blokera zawsze pod ręką</li>
           <li>Nowe karty delikatnie „rozkwitają” przy otwieraniu</li>
         </ul>
       </div>
-      <div class="okno"><img src="img/strona.jpg" alt="Nazuna z otwartą stroną Wikipedii o roślinie tasznik" width="1600" height="1000" loading="lazy"></div>
+      <div class="okno"><img data-widok="strona" src="img/mgla-strona.jpg" alt="Nazuna z otwartą stroną Wikipedii o roślinie tasznik" width="1600" height="1000" loading="lazy"></div>
     </div>
   </section>
 
@@ -309,15 +334,32 @@ footer p { margin: 4px 0; }
       <div class="tekst">
         <span class="nr">Pierwsze uruchomienie</span>
         <h2>Kilka kroków <em>i gotowe</em></h2>
-        <p style="color:var(--tekst-2)">Na powitanie Nazuna pyta tylko o to, co ważne: wygląd i kolory. Potem pomaga zabrać zakładki z poprzedniej przeglądarki i pokazuje, jak Cię chroni. Wszystko da się później zmienić w ustawieniach.</p>
+        <p>Na powitanie Nazuna pyta o wygląd, pomaga zabrać zakładki z poprzedniej przeglądarki i pokazuje, jak Cię chroni. Wszystko da się później zmienić w ustawieniach.</p>
         <ul class="lista">
-          <li>Lawendowa mgła, Washi albo Klasyczny</li>
+          <li>Lawendowa mgła, Washi albo Klasyczny, z prawdziwym podglądem</li>
           <li>Zakładki z Chrome, Edge, Brave, Opery i Firefoksa jednym kliknięciem</li>
-          <li>Podgląd zmian na żywo</li>
           <li>Ekran powitalny można przywołać z menu</li>
         </ul>
       </div>
-      <div class="okno"><img src="img/powitanie.jpg" alt="Ekran powitalny: wybór wyglądu Lawendowa mgła albo Klasyczny" width="1600" height="1000" loading="lazy"></div>
+      <div class="okno"><img data-widok="powitanie" src="img/mgla-powitanie.jpg" alt="Ekran powitalny z wyborem wyglądu" width="1600" height="1000" loading="lazy"></div>
+    </div>
+  </section>
+
+  <section class="pojaw">
+    <div class="naglowek">
+      <span class="nr">Lawendowa mgła</span>
+      <h2>Trzy kolory <em>mgły</em></h2>
+      <p>W Lawendowej mgle wybierzesz zestaw kolorów tła. Zmiana działa od razu, w całej przeglądarce.</p>
+    </div>
+    <div class="zakladki" role="tablist" aria-label="Kolory tła mgły" data-grupa="tlo">
+      <button class="zakladka" role="tab" aria-selected="true" data-img="0"><span class="kropka" style="background:linear-gradient(135deg,#5b47c9,#d977b6)"></span>Lawenda</button>
+      <button class="zakladka" role="tab" aria-selected="false" data-img="1"><span class="kropka" style="background:linear-gradient(135deg,#d977b6,#ffb199)"></span>Róż</button>
+      <button class="zakladka" role="tab" aria-selected="false" data-img="2"><span class="kropka" style="background:linear-gradient(135deg,#2c64dc,#4696ff)"></span>Morski</button>
+    </div>
+    <div class="okno warstwy" data-grupa="tlo">
+      <img class="widoczne" src="img/mgla-nowa-karta.jpg" alt="Tło lawendowe" width="1600" height="1000" loading="lazy">
+      <img src="img/kolor-roz.jpg" alt="Tło różowe" width="1600" height="1000" loading="lazy">
+      <img src="img/kolor-morski.jpg" alt="Tło morskie, głęboki błękit" width="1600" height="1000" loading="lazy">
     </div>
   </section>
 
@@ -326,7 +368,7 @@ footer p { margin: 4px 0; }
       <div class="tekst">
         <span class="nr">Okno prywatne</span>
         <h2>Noc i <em>turkus</em></h2>
-        <p style="color:var(--tekst-2)">Okno prywatne ma własny charakter, więc od razu wiesz, gdzie jesteś. Ten kolor jest zarezerwowany tylko dla niego.</p>
+        <p>Okno prywatne ma własny charakter w każdym wyglądzie, więc od razu wiesz, gdzie jesteś.</p>
         <ul class="lista">
           <li>Po zamknięciu nie zostaje historia ani ciasteczka</li>
           <li>Pobrane pliki nie trafiają na listę</li>
@@ -338,36 +380,20 @@ footer p { margin: 4px 0; }
   </section>
 
   <section class="pojaw">
-    <div class="naglowek srodek">
-      <span class="nr">Przed i po</span>
-      <h2>Przesuń, żeby <em>porównać</em></h2>
-      <p>Wolisz po staremu? Klasyczny wygląd został i można go wybrać w każdej chwili.</p>
-    </div>
-    <div class="okno porownanie" id="porownanie">
-      <img src="img/klasyczny-ciemny.jpg" alt="Klasyczny wygląd Nazuny" width="1600" height="1000" loading="lazy">
-      <div class="po"><img src="img/nowa-karta.jpg" alt="Nowy wygląd Lawendowa mgła" width="1600" height="1000" loading="lazy"></div>
-      <div class="suwak"></div>
-      <input type="range" min="0" max="100" value="50" aria-label="Przesuń, żeby porównać stary i nowy wygląd">
-    </div>
-    <div class="podpisy"><span>← Klasyczny</span><span>Lawendowa mgła →</span></div>
-  </section>
-
-  <section class="pojaw">
     <div class="naglowek">
       <span class="nr">Wszędzie</span>
-      <h2>Nowy wygląd <em>w każdym zakątku</em></h2>
-      <p>Ustawienia, historia, zakładki, pobrane pliki i strona „O Nazunie”. Kliknij, żeby powiększyć.</p>
+      <h2>Każdy wygląd <em>w każdym zakątku</em></h2>
+      <p>Ustawienia, historia i strona „O Nazunie” w różnych wyglądach. Kliknij, żeby powiększyć.</p>
     </div>
     <div class="galeria">
-      <button class="zdj" data-duze="img/ustawienia.jpg"><div class="okno"><img src="img/ustawienia.jpg" alt="Ustawienia" width="1600" height="1000" loading="lazy"></div><span>Ustawienia</span></button>
-      <button class="zdj" data-duze="img/historia.jpg"><div class="okno"><img src="img/historia.jpg" alt="Historia" width="1600" height="1000" loading="lazy"></div><span>Historia</span></button>
-      <button class="zdj" data-duze="img/o-nazunie.jpg"><div class="okno"><img src="img/o-nazunie.jpg" alt="O Nazunie" width="1600" height="1000" loading="lazy"></div><span>O Nazunie</span></button>
-      <button class="zdj" data-duze="img/klasyczny-jasny.jpg"><div class="okno"><img src="img/klasyczny-jasny.jpg" alt="Klasyczny jasny" width="1600" height="1000" loading="lazy"></div><span>Klasyczny, jasny</span></button>
-      <button class="zdj" data-duze="img/klasyczny-ciemny.jpg"><div class="okno"><img src="img/klasyczny-ciemny.jpg" alt="Klasyczny ciemny" width="1600" height="1000" loading="lazy"></div><span>Klasyczny, ciemny</span></button>
-      <button class="zdj" data-duze="img/washi-ustawienia.jpg"><div class="okno"><img src="img/washi-ustawienia.jpg" alt="Ustawienia w wyglądzie Washi" width="1600" height="1000" loading="lazy"></div><span>Washi dzień, ustawienia</span></button>
-      <button class="zdj" data-duze="img/washi-noc-ustawienia.jpg"><div class="okno"><img src="img/washi-noc-ustawienia.jpg" alt="Ustawienia w Washi nocą" width="1600" height="1000" loading="lazy"></div><span>Washi noc, ustawienia</span></button>
-      <button class="zdj" data-duze="img/washi-powitanie.jpg"><div class="okno"><img src="img/washi-powitanie.jpg" alt="Ekran powitalny w wyglądzie Washi" width="1600" height="1000" loading="lazy"></div><span>Washi, powitanie</span></button>
-      <button class="zdj" data-duze="img/kolor-morski.jpg"><div class="okno"><img src="img/kolor-morski.jpg" alt="Mgła w kolorze morskim" width="1600" height="1000" loading="lazy"></div><span>Mgła, morski</span></button>
+      <button class="zdj" data-duze="img/mgla-ustawienia.jpg"><div class="okno"><img src="img/mgla-ustawienia.jpg" alt="Ustawienia w Lawendowej mgle" width="1600" height="1000" loading="lazy"></div><span>Mgła · ustawienia</span></button>
+      <button class="zdj" data-duze="img/washi-ustawienia.jpg"><div class="okno"><img src="img/washi-ustawienia.jpg" alt="Ustawienia w Washi za dnia" width="1600" height="1000" loading="lazy"></div><span>Washi dzień · ustawienia</span></button>
+      <button class="zdj" data-duze="img/washi-noc-ustawienia.jpg"><div class="okno"><img src="img/washi-noc-ustawienia.jpg" alt="Ustawienia w Washi nocą" width="1600" height="1000" loading="lazy"></div><span>Washi noc · ustawienia</span></button>
+      <button class="zdj" data-duze="img/klasyczny-ustawienia.jpg"><div class="okno"><img src="img/klasyczny-ustawienia.jpg" alt="Ustawienia w wyglądzie Klasyczny" width="1600" height="1000" loading="lazy"></div><span>Klasyczny · ustawienia</span></button>
+      <button class="zdj" data-duze="img/washi-noc-powitanie.jpg"><div class="okno"><img src="img/washi-noc-powitanie.jpg" alt="Ekran powitalny w Washi nocą" width="1600" height="1000" loading="lazy"></div><span>Washi noc · powitanie</span></button>
+      <button class="zdj" data-duze="img/historia.jpg"><div class="okno"><img src="img/historia.jpg" alt="Historia" width="1600" height="1000" loading="lazy"></div><span>Mgła · historia</span></button>
+      <button class="zdj" data-duze="img/o-nazunie.jpg"><div class="okno"><img src="img/o-nazunie.jpg" alt="O Nazunie" width="1600" height="1000" loading="lazy"></div><span>Mgła · o Nazunie</span></button>
+      <button class="zdj" data-duze="img/klasyczny-jasny.jpg"><div class="okno"><img src="img/klasyczny-jasny.jpg" alt="Klasyczny jasny" width="1600" height="1000" loading="lazy"></div><span>Klasyczny jasny</span></button>
     </div>
   </section>
 
@@ -391,12 +417,47 @@ footer p { margin: 4px 0; }
 <dialog id="podglad"><img alt=""></dialog>
 
 <script>
-// przyciski "Pobierz" - od razu najnowszy instalator .exe (gdy GitHub nie odpowie,
-// zostaje link do strony wydania)
+// ---------------------------------------------------------------- wyglady
+var STYLE = {
+  'mgla':      { tytul: 'Lawendowej mgle.', opis: 'Miękkie plamy koloru, pasek jak matowe szkło i nowa karta, na którą chce się patrzeć.' },
+  'washi':     { tytul: 'japońskim ogrodzie.', opis: 'Washi za dnia: kremowy papier, pastelowe drzewo sakury i logo z pieczęcią 薺.' },
+  'washi-noc': { tytul: 'ogrodzie nocą.', opis: 'Washi nocą: głęboka czerń i świecąca sakura. Dla tych, którzy lubią ciemne motywy.' },
+  'klasyczny': { tytul: 'klasycznym wydaniu.', opis: 'Prosty wygląd sprzed zmiany, jasny albo ciemny. Dla tych, którzy wolą bez ozdobników.' }
+};
+function ustawStyl(styl, przewin) {
+  if (!STYLE[styl]) styl = 'mgla';
+  document.documentElement.dataset.styl = styl;
+  document.getElementById('tytulStylu').textContent = STYLE[styl].tytul;
+  document.getElementById('opisStylu').textContent = STYLE[styl].opis;
+  document.querySelectorAll('[data-styl]').forEach(function (b) { if (b !== document.documentElement) b.setAttribute('aria-pressed', String(b.dataset.styl === styl)); });
+  document.querySelectorAll('img[data-widok]').forEach(function (img) {
+    var nowy = 'img/' + styl + '-' + img.dataset.widok + '.jpg';
+    if (img.getAttribute('src') === nowy) return;
+    img.classList.add('zmiana');
+    var tmp = new Image();
+    tmp.onload = tmp.onerror = function () { img.src = nowy; img.classList.remove('zmiana'); };
+    tmp.src = nowy;
+  });
+  try { localStorage.setItem('nazuna-styl', styl); } catch (e) {}
+  try { history.replaceState(null, '', '#' + styl); } catch (e) {}
+  if (przewin) window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+document.querySelectorAll('.styl').forEach(function (b) { b.addEventListener('click', function () { ustawStyl(b.dataset.styl); }); });
+document.querySelectorAll('.wyglad').forEach(function (b) { b.addEventListener('click', function () { ustawStyl(b.dataset.styl, true); }); });
+(function () {
+  var z = location.hash.slice(1);
+  if (!STYLE[z]) { try { z = localStorage.getItem('nazuna-styl'); } catch (e) { z = null; } }
+  ustawStyl(STYLE[z] ? z : 'mgla');
+})();
+
+// przyciski "Pobierz" - od razu najnowszy instalator; numer wersji z GitHuba
 fetch('https://api.github.com/repos/patryktafel/nazuna-updates/releases/latest', { headers: { Accept: 'application/vnd.github+json' } })
   .then(function (r) { return r.ok ? r.json() : null; })
   .then(function (rel) {
-    var exe = rel && (rel.assets || []).find(function (a) { return /Instalator\.exe$/i.test(a.name); });
+    if (!rel) return;
+    var wersja = String(rel.tag_name || '').replace(/^v/, '');
+    if (wersja) document.getElementById('wersja').textContent = 'Wersja ' + wersja + ' · nowość: Washi, za dnia i nocą';
+    var exe = (rel.assets || []).find(function (a) { return /Instalator\.exe$/i.test(a.name); });
     if (!exe) return;
     document.querySelectorAll('[data-pobierz]').forEach(function (a) {
       a.href = exe.browser_download_url;
@@ -404,7 +465,8 @@ fetch('https://api.github.com/repos/patryktafel/nazuna-updates/releases/latest',
     });
   })
   .catch(function () {});
-// przełączniki kolorów
+
+// kolory mgly
 document.querySelectorAll('.zakladki').forEach(function (lista) {
   var obrazy = document.querySelectorAll('.warstwy[data-grupa="' + lista.dataset.grupa + '"] img');
   lista.addEventListener('click', function (e) {
@@ -413,16 +475,16 @@ document.querySelectorAll('.zakladki').forEach(function (lista) {
     obrazy.forEach(function (img, i) { img.classList.toggle('widoczne', i === Number(b.dataset.img)); });
   });
 });
-// porównanie przed/po
+// Washi dzien / noc
 var por = document.getElementById('porownanie');
 por.querySelector('input').addEventListener('input', function (e) { por.style.setProperty('--x', e.target.value + '%'); });
-// galeria - podgląd
+// galeria
 var dlg = document.getElementById('podglad');
 document.querySelectorAll('.zdj').forEach(function (b) {
   b.addEventListener('click', function () { dlg.querySelector('img').src = b.dataset.duze; dlg.querySelector('img').alt = b.textContent.trim(); dlg.showModal(); });
 });
 dlg.addEventListener('click', function () { dlg.close(); });
-// pojawianie się sekcji
+// pojawianie sie sekcji
 if ('IntersectionObserver' in window) {
   var io = new IntersectionObserver(function (wpisy) {
     wpisy.forEach(function (w) { if (w.isIntersecting) { w.target.classList.add('jest'); io.unobserve(w.target); } });
