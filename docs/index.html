@@ -110,6 +110,11 @@ header.gora { display: flex; align-items: center; justify-content: space-between
 h1, h2 { font-family: 'Fraunces', Georgia, serif; font-weight: 500; letter-spacing: -.5px; line-height: 1.12; margin: 0; }
 h1 { font-size: clamp(38px, 6.4vw, 72px); margin: 18px 0 16px; }
 h1 em, h2 em { font-style: italic; color: var(--akcent); transition: color .6s; }
+/* Mgla: fiolet na fiolecie mial za maly kontrast (uwaga kuzyna) - jasniejszy tytul i lekka poswiata */
+:root[data-styl="mgla"] h1 { color: #ffffff; text-shadow: 0 2px 24px rgba(10, 6, 30, .55); }
+:root[data-styl="mgla"] h1 em { color: #e4dcff; text-shadow: 0 0 28px rgba(169, 150, 255, .55), 0 2px 18px rgba(10, 6, 30, .6); }
+:root[data-styl="mgla"] h2 em { color: #d9cfff; }
+:root[data-styl="mgla"] .lead { color: #e4e0f7; }
 .lead { max-width: 660px; margin: 0 auto 26px; color: var(--tekst-2); font-size: 19px; min-height: 3.3em; }
 .cta { display: flex; gap: 16px; justify-content: center; align-items: center; flex-wrap: wrap; margin-top: 28px; }
 .cta small { color: var(--tekst-3); font-size: 14px; }
@@ -149,8 +154,9 @@ h2 { font-size: clamp(30px, 4.2vw, 46px); margin: 10px 0 14px; }
 .dwie.odwr .tekst { order: 2; }
 .tekst > p { color: var(--tekst-2); }
 .lista { list-style: none; padding: 0; margin: 20px 0 0; display: grid; gap: 12px; }
-.lista li { display: flex; gap: 12px; color: var(--tekst-2); }
-.lista li::before { content: ''; flex: none; width: 8px; height: 8px; margin-top: 10px; border-radius: 50%; background: var(--akcent); box-shadow: 0 0 12px var(--akcent); }
+/* li jako zwykly blok (nie flex) - inaczej wstawki <span class="jp"> wypadaly z linijki do osobnej kolumny */
+.lista li { position: relative; padding-left: 20px; color: var(--tekst-2); }
+.lista li::before { content: ''; position: absolute; left: 0; top: .62em; width: 8px; height: 8px; border-radius: 50%; background: var(--akcent); box-shadow: 0 0 12px var(--akcent); }
 .prywatne .lista li::before { background: var(--turkus); box-shadow: 0 0 12px var(--turkus); }
 .prywatne .nr, .prywatne h2 em { color: var(--turkus); }
 
