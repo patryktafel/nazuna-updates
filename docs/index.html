@@ -189,6 +189,8 @@ dialog img { max-height: 90vh; width: auto; border-radius: 12px; cursor: zoom-ou
 .koniec .lead { min-height: 0; }
 footer { padding: 30px 0 50px; color: var(--tekst-3); font-size: 14px; text-align: center; border-top: 1px solid var(--obwodka); }
 footer p { margin: 4px 0; }
+footer .zrodla { max-width: 640px; margin: 0 auto 18px; padding: 14px 18px; border: 1px solid var(--obwodka); border-radius: 14px; color: var(--tekst-2); line-height: 1.55; }
+footer .zrodla b { color: var(--tekst); }
 
 .pojaw { opacity: 0; transform: translateY(26px); transition: opacity .8s var(--ease), transform .8s var(--ease); }
 .pojaw.jest { opacity: 1; transform: none; }
@@ -415,7 +417,8 @@ footer p { margin: 4px 0; }
 
 <footer>
   <div class="wrap">
-    <p>Nazuna · przeglądarka dla Windows · stworzona przez Tafel</p>
+    <p class="zrodla"><b>Oficjalne źródła Nazuny:</b> ta strona (<a href="https://patryktafel.github.io/nazuna-updates/">patryktafel.github.io/nazuna-updates</a>) oraz konto GitHub <a href="https://github.com/patryktafel">github.com/patryktafel</a>. Nazuna pobrana z innego miejsca nie jest oficjalna i może zawierać złośliwe oprogramowanie.</p>
+    <p>Nazuna · przeglądarka dla Windows i macOS · stworzona przez Tafel</p>
     <p>Zakładki i liczby na zdjęciach są przykładowe.</p>
   </div>
 </footer>
