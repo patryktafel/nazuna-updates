@@ -4,9 +4,9 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Nazuna - przeglądarka</title>
-<meta name="description" content="Nazuna: szybka i prywatna przeglądarka dla Windows w trzech wyglądach - Lawendowa mgła, Washi (japoński ogród sakury, dzień i noc) i Klasyczny.">
-<meta property="og:title" content="Nazuna - przeglądarka w trzech wyglądach">
-<meta property="og:description" content="Lawendowa mgła, Washi za dnia i nocą, Klasyczny. Bloker reklam, osobne ciasteczka dla każdej strony, bez konta i bez AI.">
+<meta name="description" content="Nazuna: szybka i prywatna przeglądarka dla Windows w czterech wyglądach - Lawendowa mgła, Washi (japoński ogród sakury), Engawa (japoński ogród widziany z werandy) i Klasyczny.">
+<meta property="og:title" content="Nazuna - przeglądarka w czterech wyglądach">
+<meta property="og:description" content="Lawendowa mgła, Washi, Engawa za dnia i nocą, Klasyczny. Bloker reklam, osobne ciasteczka dla każdej strony, bez konta i bez AI.">
 <meta property="og:image" content="img/washi-noc-nowa-karta.jpg">
 <link rel="icon" href="img/ikona.png">
 <style>
@@ -15,7 +15,7 @@
 @font-face { font-family: 'Fraunces'; src: url(fonts/Fraunces-latin.woff2) format('woff2'); font-weight: 100 900; font-display: swap; unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215; }
 @font-face { font-family: 'Fraunces'; src: url(fonts/Fraunces-latin-ext.woff2) format('woff2'); font-weight: 100 900; font-display: swap; unicode-range: U+0100-02AF, U+1E00-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF; }
 
-/* ------------------------------------------------ cztery wyglady strony
+/* ------------------------------------------------ wyglady strony
    Strona przebiera sie razem z wybranym wygladem Nazuny (przelacznik u gory). */
 :root, :root[data-styl="mgla"] {
   --bg: #15131f; --bg-2: #1b1830; --szklo: rgba(32, 27, 58, 0.55); --obwodka: rgba(255, 255, 255, 0.09);
@@ -42,6 +42,24 @@
   --plama-1: #7a0c38; --plama-2: #ff2f7a; --plama-3: #2a0716; --plamy: .3;
   --platek-1: #ff9cbe; --platek-2: #ff5c97; --srodek: #08070a;
   --gora: #1c0b14;
+  color-scheme: dark;
+}
+:root[data-styl="engawa"] {
+  --bg: #f1e8d8; --bg-2: #fffdf8; --szklo: rgba(255, 252, 245, 0.78); --obwodka: rgba(60, 40, 20, 0.12);
+  --tekst: #26221d; --tekst-2: #4f463c; --tekst-3: #7d7262;
+  --akcent: #a5571f; --akcent-2: #c9763a; --na-akcencie: #fffdf8; --cien-akcentu: rgba(165, 87, 31, .28);
+  --plama-1: #bfdff0; --plama-2: #e9c9a0; --plama-3: #cfe3b8; --plamy: .55;
+  --platek-1: #e8a070; --platek-2: #c9763a; --srodek: #fffdf8;
+  --gora: #fffaf1;
+  color-scheme: light;
+}
+:root[data-styl="engawa-noc"] {
+  --bg: #08080f; --bg-2: #10101a; --szklo: rgba(16, 16, 28, 0.72); --obwodka: rgba(255, 200, 140, 0.11);
+  --tekst: #f6f1ea; --tekst-2: #d5cec4; --tekst-3: #98929f;
+  --akcent: #ffb357; --akcent-2: #ffd08a; --na-akcencie: #1a1006; --cien-akcentu: rgba(255, 150, 60, .4);
+  --plama-1: #1c2058; --plama-2: #b5221a; --plama-3: #4a3878; --plamy: .32;
+  --platek-1: #ffd08a; --platek-2: #ffb357; --srodek: #08080f;
+  --gora: #15152c;
   color-scheme: dark;
 }
 :root[data-styl="klasyczny"] {
@@ -96,6 +114,8 @@ header.gora { display: flex; align-items: center; justify-content: space-between
 .k-mgla { background: linear-gradient(135deg, #5b47c9, #d977b6); }
 .k-washi { background: linear-gradient(135deg, #f6f1e7 55%, #eaa2b6 56%); }
 .k-washi-noc { background: linear-gradient(135deg, #08070a 55%, #ff5c97 56%); }
+.k-engawa { background: linear-gradient(135deg, #bfdff0 55%, #c9763a 56%); }
+.k-engawa-noc { background: linear-gradient(135deg, #10143a 55%, #ffb357 56%); }
 .k-klasyczny { background: linear-gradient(135deg, #16171c 55%, #8b7cff 56%); }
 .przymiarka { margin-bottom: 12px; color: var(--tekst-3); font-size: 14px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; }
 
@@ -134,7 +154,7 @@ h2 { font-size: clamp(30px, 4.2vw, 46px); margin: 10px 0 14px; }
 .nr { color: var(--akcent-2); font-weight: 800; font-size: 14px; letter-spacing: 3px; text-transform: uppercase; }
 
 /* cztery wyglady - karty */
-.wyglady { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
+.wyglady { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
 .wyglad { border: 0; padding: 0; cursor: pointer; text-align: left; font: inherit; color: inherit; background: var(--szklo); border-radius: 18px; overflow: hidden; box-shadow: inset 0 0 0 1px var(--obwodka); transition: transform .25s var(--ease), box-shadow .25s; }
 .wyglad:hover { transform: translateY(-4px); }
 .wyglad[aria-pressed="true"] { box-shadow: inset 0 0 0 2px var(--akcent), 0 18px 40px -20px var(--cien-akcentu); }
@@ -237,7 +257,7 @@ footer .zrodla b { color: var(--tekst); }
       <ellipse class="pl p4" cx="27" cy="50" rx="21" ry="14"/>
       <circle class="sr" cx="50" cy="50" r="9"/>
     </svg>
-    <span class="etykieta" id="wersja">Nowość: Washi, japoński ogród za dnia i nocą</span>
+    <span class="etykieta" id="wersja">Nowość: Engawa, japoński ogród widziany z werandy</span>
     <h1>Nazuna w <em id="tytulStylu">Lawendowej mgle.</em></h1>
     <p class="lead" id="opisStylu">Miękkie plamy koloru, pasek jak matowe szkło i nowa karta, na którą chce się patrzeć.</p>
     <div class="przymiarka">Przymierz wygląd</div>
@@ -245,6 +265,8 @@ footer .zrodla b { color: var(--tekst); }
       <button class="styl" data-styl="mgla" aria-pressed="true"><span class="kropka k-mgla"></span>Lawendowa mgła</button>
       <button class="styl" data-styl="washi" aria-pressed="false"><span class="kropka k-washi"></span>Washi dzień</button>
       <button class="styl" data-styl="washi-noc" aria-pressed="false"><span class="kropka k-washi-noc"></span>Washi noc</button>
+      <button class="styl" data-styl="engawa" aria-pressed="false"><span class="kropka k-engawa"></span>Engawa dzień</button>
+      <button class="styl" data-styl="engawa-noc" aria-pressed="false"><span class="kropka k-engawa-noc"></span>Engawa noc</button>
       <button class="styl" data-styl="klasyczny" aria-pressed="false"><span class="kropka k-klasyczny"></span>Klasyczny</button>
     </div>
     <div class="cta">
@@ -259,7 +281,7 @@ footer .zrodla b { color: var(--tekst); }
 
   <section class="pojaw">
     <div class="naglowek srodek">
-      <span class="nr">Trzy wyglądy</span>
+      <span class="nr">Cztery wyglądy</span>
       <h2>Wybierz, w czym <em>Ci dobrze</em></h2>
       <p>Każdy wygląd zmienia całą przeglądarkę: pasek, nową kartę, ustawienia i wszystkie strony Nazuny. Kliknij, żeby przymierzyć.</p>
     </div>
@@ -267,14 +289,41 @@ footer .zrodla b { color: var(--tekst); }
       <button class="wyglad" data-styl="mgla" aria-pressed="true"><img src="img/mgla-nowa-karta.jpg" alt="" loading="lazy"><b>Lawendowa mgła</b><span>Miękkie fioletowe plamy i szklany pasek</span></button>
       <button class="wyglad" data-styl="washi" aria-pressed="false"><img src="img/washi-nowa-karta.jpg" alt="" loading="lazy"><b>Washi dzień</b><span>Kremowy papier i pastelowe drzewo sakury</span></button>
       <button class="wyglad" data-styl="washi-noc" aria-pressed="false"><img src="img/washi-noc-nowa-karta.jpg" alt="" loading="lazy"><b>Washi noc</b><span>Głęboka czerń i świecąca sakura</span></button>
+      <button class="wyglad" data-styl="engawa" aria-pressed="false"><img src="img/engawa-nowa-karta.jpg" alt="" loading="lazy"><b>Engawa dzień</b><span>Ogród w słońcu i jasne drewno</span></button>
+      <button class="wyglad" data-styl="engawa-noc" aria-pressed="false"><img src="img/engawa-noc-nowa-karta.jpg" alt="" loading="lazy"><b>Engawa noc</b><span>Księżyc, lampion i świetliki</span></button>
       <button class="wyglad" data-styl="klasyczny" aria-pressed="false"><img src="img/klasyczny-nowa-karta.jpg" alt="" loading="lazy"><b>Klasyczny</b><span>Prosty wygląd sprzed zmiany</span></button>
+    </div>
+  </section>
+
+  <section class="pojaw">
+    <div class="dwie">
+      <div class="tekst">
+        <span class="nr">Nowość · Engawa</span>
+        <h2>Ogród widziany <em>z werandy</em></h2>
+        <p>Engawa to drewniana weranda japońskiego domu. Na nowej karcie widać z niej cały ogród, a zegar, wyszukiwarka i ulubione strony leżą na matowym szkle. Pora zmienia się sama razem z przyciskiem słońca i księżyca albo na stałe w ustawieniach.</p>
+        <ul class="lista">
+          <li>Staw z karpiami koi, czerwony klon i kamienna latarnia</li>
+          <li>Lampion z napisem <span class="jp">ナズナ</span>, czyli "Nazuna"</li>
+          <li>Za dnia kremowy pasek i jasne drewno, nocą granatowa czerń, księżyc i świetliki</li>
+          <li>Okno prywatne zostaje proste i turkusowe, żeby od razu było widać różnicę</li>
+        </ul>
+      </div>
+      <div>
+        <div class="okno porownanie">
+          <img src="img/engawa-nowa-karta.jpg" alt="Engawa dzień" width="1600" height="1000" loading="lazy">
+          <div class="po"><img src="img/engawa-noc-nowa-karta.jpg" alt="Engawa noc" width="1600" height="1000" loading="lazy"></div>
+          <div class="suwak"></div>
+          <input type="range" min="0" max="100" value="50" aria-label="Przesuń, żeby porównać Engawę za dnia i nocą">
+        </div>
+        <div class="podpisy"><span>Dzień</span><span>Noc</span></div>
+      </div>
     </div>
   </section>
 
   <section class="pojaw">
     <div class="dwie odwr">
       <div class="tekst">
-        <span class="nr">Nowość · Washi</span>
+        <span class="nr">Washi</span>
         <h2>Japoński ogród <em>za dnia i nocą</em></h2>
         <p>Za dnia kremowy papier z pastelową sakurą, nocą głęboka czerń i świecące różowe drzewo. Pora zmienia się sama razem z przyciskiem słońca i księżyca albo na stałe w ustawieniach.</p>
         <ul class="lista">
@@ -344,7 +393,7 @@ footer .zrodla b { color: var(--tekst); }
         <h2>Kilka kroków <em>i gotowe</em></h2>
         <p>Na powitanie Nazuna pyta o wygląd, pomaga zabrać zakładki z poprzedniej przeglądarki i pokazuje, jak Cię chroni. Wszystko da się później zmienić w ustawieniach.</p>
         <ul class="lista">
-          <li>Lawendowa mgła, Washi albo Klasyczny, z prawdziwym podglądem</li>
+          <li>Lawendowa mgła, Washi, Engawa albo Klasyczny, z prawdziwym podglądem</li>
           <li>Zakładki z Chrome, Edge, Brave, Opery i Firefoksa jednym kliknięciem</li>
           <li>Ekran powitalny można przywołać z menu</li>
         </ul>
@@ -431,6 +480,8 @@ var STYLE = {
   'mgla':      { tytul: 'Lawendowej mgle.', opis: 'Miękkie plamy koloru, pasek jak matowe szkło i nowa karta, na którą chce się patrzeć.' },
   'washi':     { tytul: 'japońskim ogrodzie.', opis: 'Washi za dnia: kremowy papier, pastelowe drzewo sakury i logo z pieczęcią 薺.' },
   'washi-noc': { tytul: 'ogrodzie nocą.', opis: 'Washi nocą: głęboka czerń i świecąca sakura. Dla tych, którzy lubią ciemne motywy.' },
+  'engawa':    { tytul: 'ogrodzie z werandy.', opis: 'Engawa za dnia: ogród w słońcu, staw z karpiami koi, jasne drewno i lampion z napisem Nazuna.' },
+  'engawa-noc': { tytul: 'ogrodzie przy księżycu.', opis: 'Engawa nocą: księżyc nad stawem, świetliki i ciepłe światło lampionu na granatowej czerni.' },
   'klasyczny': { tytul: 'klasycznym wydaniu.', opis: 'Prosty wygląd sprzed zmiany, jasny albo ciemny. Dla tych, którzy wolą bez ozdobników.' }
 };
 function ustawStyl(styl, przewin) {
@@ -465,7 +516,7 @@ fetch('https://api.github.com/repos/patryktafel/nazuna-updates/releases/latest',
   .then(function (rel) {
     if (!rel) return;
     var wersja = String(rel.tag_name || '').replace(/^v/, '');
-    if (wersja) document.getElementById('wersja').textContent = 'Wersja ' + wersja + ' · nowość: Washi, za dnia i nocą';
+    if (wersja) document.getElementById('wersja').textContent = 'Wersja ' + wersja + ' · nowość: Engawa, ogród z werandy za dnia i nocą';
     var exe = (rel.assets || []).find(function (a) { return /Instalator\.exe$/i.test(a.name); });
     if (!exe) return;
     document.querySelectorAll('[data-pobierz]').forEach(function (a) {
@@ -484,9 +535,10 @@ document.querySelectorAll('.zakladki').forEach(function (lista) {
     obrazy.forEach(function (img, i) { img.classList.toggle('widoczne', i === Number(b.dataset.img)); });
   });
 });
-// Washi dzien / noc
-var por = document.getElementById('porownanie');
-por.querySelector('input').addEventListener('input', function (e) { por.style.setProperty('--x', e.target.value + '%'); });
+// suwaki dzien / noc (Engawa, Washi)
+document.querySelectorAll('.porownanie').forEach(function (por) {
+  por.querySelector('input').addEventListener('input', function (e) { por.style.setProperty('--x', e.target.value + '%'); });
+});
 // galeria
 var dlg = document.getElementById('podglad');
 document.querySelectorAll('.zdj').forEach(function (b) {
