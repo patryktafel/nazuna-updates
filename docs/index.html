@@ -4,9 +4,9 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Nazuna - przeglądarka</title>
-<meta name="description" content="Nazuna: szybka i prywatna przeglądarka dla Windows w czterech wyglądach - Lawendowa mgła, Washi (japoński ogród sakury), Engawa (japoński ogród widziany z werandy) i Klasyczny.">
-<meta property="og:title" content="Nazuna - przeglądarka w czterech wyglądach">
-<meta property="og:description" content="Lawendowa mgła, Washi, Engawa za dnia i nocą, Klasyczny. Bloker reklam, osobne ciasteczka dla każdej strony, bez konta i bez AI.">
+<meta name="description" content="Nazuna: szybka i prywatna przeglądarka dla Windows w pięciu wyglądach - Lawendowa mgła, Washi (japoński ogród sakury), Engawa (ogród widziany z werandy), Satoyama (wioska pod górą Fuji) i Klasyczny.">
+<meta property="og:title" content="Nazuna - przeglądarka w pięciu wyglądach">
+<meta property="og:description" content="Lawendowa mgła, Washi, Engawa, Satoyama, Klasyczny. Bloker reklam, osobne ciasteczka dla każdej strony, bez konta i bez AI.">
 <meta property="og:image" content="img/washi-noc-nowa-karta.jpg">
 <link rel="icon" href="img/ikona.png">
 <style>
@@ -60,6 +60,24 @@
   --plama-1: #1c2058; --plama-2: #b5221a; --plama-3: #4a3878; --plamy: .32;
   --platek-1: #ffd08a; --platek-2: #ffb357; --srodek: #08080f;
   --gora: #15152c;
+  color-scheme: dark;
+}
+:root[data-styl="satoyama"] {
+  --bg: #eef3ee; --bg-2: #ffffff; --szklo: rgba(255, 255, 255, 0.78); --obwodka: rgba(40, 50, 60, 0.12);
+  --tekst: #1f2430; --tekst-2: #414a58; --tekst-3: #6f7886;
+  --akcent: #c8452f; --akcent-2: #e0664e; --na-akcencie: #ffffff; --cien-akcentu: rgba(200, 69, 47, .28);
+  --plama-1: #bfe0f2; --plama-2: #c6dd86; --plama-3: #f6ecd2; --plamy: .6;
+  --platek-1: #e8836e; --platek-2: #c8452f; --srodek: #ffffff;
+  --gora: #dcecf6;
+  color-scheme: light;
+}
+:root[data-styl="satoyama-noc"] {
+  --bg: #0b0a1a; --bg-2: #131128; --szklo: rgba(20, 16, 40, 0.72); --obwodka: rgba(255, 170, 130, 0.12);
+  --tekst: #f6efe8; --tekst-2: #d6cdd2; --tekst-3: #9a93ab;
+  --akcent: #ff7a4a; --akcent-2: #ffb08a; --na-akcencie: #1a0a06; --cien-akcentu: rgba(255, 110, 60, .42);
+  --plama-1: #3b2f72; --plama-2: #f5935c; --plama-3: #8a3f7c; --plamy: .34;
+  --platek-1: #ffb08a; --platek-2: #ff7a4a; --srodek: #0b0a1a;
+  --gora: #1d1650;
   color-scheme: dark;
 }
 :root[data-styl="klasyczny"] {
@@ -116,6 +134,8 @@ header.gora { display: flex; align-items: center; justify-content: space-between
 .k-washi-noc { background: linear-gradient(135deg, #08070a 55%, #ff5c97 56%); }
 .k-engawa { background: linear-gradient(135deg, #bfdff0 55%, #c9763a 56%); }
 .k-engawa-noc { background: linear-gradient(135deg, #10143a 55%, #ffb357 56%); }
+.k-satoyama { background: linear-gradient(135deg, #9cc77a 55%, #c8452f 56%); }
+.k-satoyama-noc { background: linear-gradient(135deg, #1d1650 55%, #ff7a4a 56%); }
 .k-klasyczny { background: linear-gradient(135deg, #16171c 55%, #8b7cff 56%); }
 .przymiarka { margin-bottom: 12px; color: var(--tekst-3); font-size: 14px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; }
 
@@ -154,7 +174,7 @@ h2 { font-size: clamp(30px, 4.2vw, 46px); margin: 10px 0 14px; }
 .nr { color: var(--akcent-2); font-weight: 800; font-size: 14px; letter-spacing: 3px; text-transform: uppercase; }
 
 /* cztery wyglady - karty */
-.wyglady { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+.wyglady { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
 .wyglad { border: 0; padding: 0; cursor: pointer; text-align: left; font: inherit; color: inherit; background: var(--szklo); border-radius: 18px; overflow: hidden; box-shadow: inset 0 0 0 1px var(--obwodka); transition: transform .25s var(--ease), box-shadow .25s; }
 .wyglad:hover { transform: translateY(-4px); }
 .wyglad[aria-pressed="true"] { box-shadow: inset 0 0 0 2px var(--akcent), 0 18px 40px -20px var(--cien-akcentu); }
@@ -257,7 +277,7 @@ footer .zrodla b { color: var(--tekst); }
       <ellipse class="pl p4" cx="27" cy="50" rx="21" ry="14"/>
       <circle class="sr" cx="50" cy="50" r="9"/>
     </svg>
-    <span class="etykieta" id="wersja">Nowość: Engawa, japoński ogród widziany z werandy</span>
+    <span class="etykieta" id="wersja">Nowość: Satoyama, wioska pod górą Fuji</span>
     <h1>Nazuna w <em id="tytulStylu">Lawendowej mgle.</em></h1>
     <p class="lead" id="opisStylu">Miękkie plamy koloru, pasek jak matowe szkło i nowa karta, na którą chce się patrzeć.</p>
     <div class="przymiarka">Przymierz wygląd</div>
@@ -267,6 +287,8 @@ footer .zrodla b { color: var(--tekst); }
       <button class="styl" data-styl="washi-noc" aria-pressed="false"><span class="kropka k-washi-noc"></span>Washi noc</button>
       <button class="styl" data-styl="engawa" aria-pressed="false"><span class="kropka k-engawa"></span>Engawa dzień</button>
       <button class="styl" data-styl="engawa-noc" aria-pressed="false"><span class="kropka k-engawa-noc"></span>Engawa noc</button>
+      <button class="styl" data-styl="satoyama" aria-pressed="false"><span class="kropka k-satoyama"></span>Satoyama dzień</button>
+      <button class="styl" data-styl="satoyama-noc" aria-pressed="false"><span class="kropka k-satoyama-noc"></span>Satoyama noc</button>
       <button class="styl" data-styl="klasyczny" aria-pressed="false"><span class="kropka k-klasyczny"></span>Klasyczny</button>
     </div>
     <div class="cta">
@@ -281,7 +303,7 @@ footer .zrodla b { color: var(--tekst); }
 
   <section class="pojaw">
     <div class="naglowek srodek">
-      <span class="nr">Cztery wyglądy</span>
+      <span class="nr">Pięć wyglądów</span>
       <h2>Wybierz, w czym <em>Ci dobrze</em></h2>
       <p>Każdy wygląd zmienia całą przeglądarkę: pasek, nową kartę, ustawienia i wszystkie strony Nazuny. Kliknij, żeby przymierzyć.</p>
     </div>
@@ -291,14 +313,41 @@ footer .zrodla b { color: var(--tekst); }
       <button class="wyglad" data-styl="washi-noc" aria-pressed="false"><img src="img/washi-noc-nowa-karta.jpg" alt="" loading="lazy"><b>Washi noc</b><span>Głęboka czerń i świecąca sakura</span></button>
       <button class="wyglad" data-styl="engawa" aria-pressed="false"><img src="img/engawa-nowa-karta.jpg" alt="" loading="lazy"><b>Engawa dzień</b><span>Ogród w słońcu i jasne drewno</span></button>
       <button class="wyglad" data-styl="engawa-noc" aria-pressed="false"><img src="img/engawa-noc-nowa-karta.jpg" alt="" loading="lazy"><b>Engawa noc</b><span>Księżyc, lampion i świetliki</span></button>
+      <button class="wyglad" data-styl="satoyama" aria-pressed="false"><img src="img/satoyama-nowa-karta.jpg" alt="" loading="lazy"><b>Satoyama dzień</b><span>Wioska pod Fuji, żurawie nad polami</span></button>
+      <button class="wyglad" data-styl="satoyama-noc" aria-pressed="false"><img src="img/satoyama-noc-nowa-karta.jpg" alt="" loading="lazy"><b>Satoyama noc</b><span>Festyn, lampiony i fajerwerki</span></button>
       <button class="wyglad" data-styl="klasyczny" aria-pressed="false"><img src="img/klasyczny-nowa-karta.jpg" alt="" loading="lazy"><b>Klasyczny</b><span>Prosty wygląd sprzed zmiany</span></button>
+    </div>
+  </section>
+
+  <section class="pojaw">
+    <div class="dwie odwr">
+      <div class="tekst">
+        <span class="nr">Nowość · Satoyama</span>
+        <h2>Wioska <em>pod górą Fuji</em></h2>
+        <p>Satoyama to japońska wieś u stóp gór, wśród pól ryżowych. Za dnia spokojna, wieczorem zamienia się w letni festyn. Pora zmienia się sama razem z przyciskiem słońca i księżyca albo na stałe w ustawieniach.</p>
+        <ul class="lista">
+          <li>Tradycyjne domy: ciemne drewno, papierowe drzwi, dachy ze słomy i dachówki</li>
+          <li>Za dnia klucz żurawi nad polami i proporce w kształcie karpi</li>
+          <li>Wieczorem wieża z bębnem, sznury lampionów, stragany i fajerwerki nad Fuji</li>
+          <li>Jasny pasek z czerwienią bramy torii albo granat z kolorem lampionów</li>
+        </ul>
+      </div>
+      <div>
+        <div class="okno porownanie">
+          <img src="img/satoyama-nowa-karta.jpg" alt="Satoyama dzień" width="1600" height="1000" loading="lazy">
+          <div class="po"><img src="img/satoyama-noc-nowa-karta.jpg" alt="Satoyama noc" width="1600" height="1000" loading="lazy"></div>
+          <div class="suwak"></div>
+          <input type="range" min="0" max="100" value="50" aria-label="Przesuń, żeby porównać Satoyamę za dnia i nocą">
+        </div>
+        <div class="podpisy"><span>Dzień</span><span>Noc</span></div>
+      </div>
     </div>
   </section>
 
   <section class="pojaw">
     <div class="dwie">
       <div class="tekst">
-        <span class="nr">Nowość · Engawa</span>
+        <span class="nr">Engawa</span>
         <h2>Ogród widziany <em>z werandy</em></h2>
         <p>Engawa to drewniana weranda japońskiego domu. Na nowej karcie widać z niej cały ogród, a zegar, wyszukiwarka i ulubione strony leżą na matowym szkle. Pora zmienia się sama razem z przyciskiem słońca i księżyca albo na stałe w ustawieniach.</p>
         <ul class="lista">
@@ -393,7 +442,7 @@ footer .zrodla b { color: var(--tekst); }
         <h2>Kilka kroków <em>i gotowe</em></h2>
         <p>Na powitanie Nazuna pyta o wygląd, pomaga zabrać zakładki z poprzedniej przeglądarki i pokazuje, jak Cię chroni. Wszystko da się później zmienić w ustawieniach.</p>
         <ul class="lista">
-          <li>Lawendowa mgła, Washi, Engawa albo Klasyczny, z prawdziwym podglądem</li>
+          <li>Lawendowa mgła, Washi, Engawa, Satoyama albo Klasyczny, z prawdziwym podglądem</li>
           <li>Zakładki z Chrome, Edge, Brave, Opery i Firefoksa jednym kliknięciem</li>
           <li>Ekran powitalny można przywołać z menu</li>
         </ul>
@@ -482,6 +531,8 @@ var STYLE = {
   'washi-noc': { tytul: 'ogrodzie nocą.', opis: 'Washi nocą: głęboka czerń i świecąca sakura. Dla tych, którzy lubią ciemne motywy.' },
   'engawa':    { tytul: 'ogrodzie z werandy.', opis: 'Engawa za dnia: ogród w słońcu, staw z karpiami koi, jasne drewno i lampion z napisem Nazuna.' },
   'engawa-noc': { tytul: 'ogrodzie przy księżycu.', opis: 'Engawa nocą: księżyc nad stawem, świetliki i ciepłe światło lampionu na granatowej czerni.' },
+  'satoyama':  { tytul: 'wiosce pod Fuji.', opis: 'Satoyama za dnia: tradycyjne domy wśród pól ryżowych, klucz żurawi i góra Fuji w tle.' },
+  'satoyama-noc': { tytul: 'wieczornym festynie.', opis: 'Satoyama nocą: wieża z bębnem, sznury lampionów, stragany i fajerwerki nad Fuji.' },
   'klasyczny': { tytul: 'klasycznym wydaniu.', opis: 'Prosty wygląd sprzed zmiany, jasny albo ciemny. Dla tych, którzy wolą bez ozdobników.' }
 };
 function ustawStyl(styl, przewin) {
@@ -516,7 +567,7 @@ fetch('https://api.github.com/repos/patryktafel/nazuna-updates/releases/latest',
   .then(function (rel) {
     if (!rel) return;
     var wersja = String(rel.tag_name || '').replace(/^v/, '');
-    if (wersja) document.getElementById('wersja').textContent = 'Wersja ' + wersja + ' · nowość: Engawa, ogród z werandy za dnia i nocą';
+    if (wersja) document.getElementById('wersja').textContent = 'Wersja ' + wersja + ' · nowość: Satoyama, wioska pod górą Fuji';
     var exe = (rel.assets || []).find(function (a) { return /Instalator\.exe$/i.test(a.name); });
     if (!exe) return;
     document.querySelectorAll('[data-pobierz]').forEach(function (a) {
